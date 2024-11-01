@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Documento</title>
+    <link rel="stylesheet" href="modelo.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        .info {
+            margin: 20px 0;
+        }
+        .no-print {
+            margin: 20px 0;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            z-index: 1001;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+            .overlay, .modal {
+                display: none;
+            }
+            .printable {
+                display: block;
+            }
+        }
+        .printable {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #333;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Detalhes do Item</h1>
+    <a class="back-button" href="index.html">Voltar</a>
+    
+    <div class="info" id="item-info">
+        <h2>Carregando detalhes...</h2>
+    </div>
+    
+    <button class="no-print" onclick="window.print()">Imprimir</button>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="modal" id="modal">
+        <div class="modal-header">
+            <h2>Informações Detalhadas</h2>
+            <button class="close-modal" id="closeModal">Fechar</button>
+        </div>
+        <div class="modal-content" id="modalContent"></div>
+    </div>
+
+    <div class="printable" id="printable-area"></div>
+
+    <script>
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        const itemId = parseInt(getQueryParameter('itemId'));
+
+        if (isNaN(itemId)) {
+            document.getElementById('item-info').innerHTML = `<h2>ID do item não fornecido.</h2>`;
+        } else {
+            fetch('/inventario')
+                .then(response => {
+                    if (!response.ok) throw new Error('Erro na resposta da rede');
+                    return response.json();
+                })
+                .then(data => {
+                    const item = data.find(i => i.id === itemId);
+    
+                    if (item) {
+                        const infoDiv = document.getElementById('item-info');
+                        infoDiv.innerHTML = `
+                            <p><label>Transportadora:</label> ${item.transportadora.nome || "Não disponível"}</p>
+                            <p><label>CNPJ:</label> ${item.transportadora.cnpj || "Não disponível"}</p>
+                            <p><label>Nome do Cliente:</label> ${item.cliente.nome || "Não disponível"}</p>
+                            <p><label>Telefone do Cliente:</label> ${item.cliente.telefone || "Não disponível"}</p>
+                            <h3>Endereço de Origem:</h3>
+                            <p><label>Endereço:</label> ${item.cliente.endereco_origem.endereco || "Não disponível"}</p>
+                            <p><label>Bairro:</label> ${item.cliente.endereco_origem.bairro || "Não disponível"}</p>
+                            <p><label>Cidade:</label> ${item.cliente.endereco_origem.cidade || "Não disponível"}</p>
+                            <p><label>Estado:</label> ${item.cliente.endereco_origem.uf || "Não disponível"}</p>
+                            <h3>Endereço de Destino:</h3>
+                            <p><label>Endereço:</label> ${item.cliente.endereco_destino.endereco || "Não disponível"}</p>
+                            <p><label>Bairro:</label> ${item.cliente.endereco_destino.bairro || "Não disponível"}</p>
+                            <p><label>Cidade:</label> ${item.cliente.endereco_destino.cidade || "Não disponível"}</p>
+                            <p><label>Estado:</label> ${item.cliente.endereco_destino.uf || "Não disponível"}</p>
+                            <p><label>Data:</label> ${item.data_local ? item.data_local.split('T')[0] : "Não disponível"}</p>
+                            <p><label>Valor Total:</label> R$ ${item.valor_total_declarado ? item.valor_total_declarado.toFixed(2) : "Não disponível"}</p>
+                            <h3>Itens Transportados:</h3>
+                            <ul>
+                                ${item.itens.map(i => `<li>${i.descricao} - Quantidade: ${i.quantidade}, Valor: R$${i.valor}</li>`).join('')}
+                            </ul>
+                            <p><label>Observação:</label> ${item.observacao || "Nenhuma"}</p>
+                            <p><label>Assinatura Transportador:</label> ${item.assinaturas.transportador || "Pendente"}</p>
+                            <p><label>Assinatura Cliente:</label> ${item.assinaturas.cliente || "Pendente"}</p>
+                            <p><a href="#" onclick="openModal()">Visualizar Detalhes</a></p>
+                        `;
+
+                        // Preencher a área de impressão
+                        const printableArea = document.getElementById('printable-area');
+                        printableArea.innerHTML = `
+                            <h2>Detalhes do Item</h2>
+                            <p><strong>Transportadora:</strong> ${item.transportadora.nome || "Não disponível"}</p>
+                            <p><strong>CNPJ:</strong> ${item.transportadora.cnpj || "Não disponível"}</p>
+                            <p><strong>Nome do Cliente:</strong> ${item.cliente.nome || "Não disponível"}</p>
+                            <p><strong>Telefone do Cliente:</strong> ${item.cliente.telefone || "Não disponível"}</p>
+                            <h3>Endereço de Origem:</h3>
+                            <p><strong>Endereço:</strong> ${item.cliente.endereco_origem.endereco || "Não disponível"}</p>
+                            <p><strong>Bairro:</strong> ${item.cliente.endereco_origem.bairro || "Não disponível"}</p>
+                            <p><strong>Cidade:</strong> ${item.cliente.endereco_origem.cidade || "Não disponível"}</p>
+                            <p><strong>Estado:</strong> ${item.cliente.endereco_origem.uf || "Não disponível"}</p>
+                            <h3>Endereço de Destino:</h3>
+                            <p><strong>Endereço:</strong> ${item.cliente.endereco_destino.endereco || "Não disponível"}</p>
+                            <p><strong>Bairro:</strong> ${item.cliente.endereco_destino.bairro || "Não disponível"}</p>
+                            <p><strong>Cidade:</strong> ${item.cliente.endereco_destino.cidade || "Não disponível"}</p>
+                            <p><strong>Estado:</strong> ${item.cliente.endereco_destino.uf || "Não disponível"}</p>
+                            <p><strong>Data:</strong> ${item.data_local ? item.data_local.split('T')[0] : "Não disponível"}</p>
+                            <p><strong>Valor Total:</strong> R$ ${item.valor_total_declarado ? item.valor_total_declarado.toFixed(2) : "Não disponível"}</p>
+                            <h3>Itens Transportados:</h3>
+                            <ul>
+                                ${item.itens.map(i => `<li>${i.descricao} - Quantidade: ${i.quantidade}, Valor: ${i.valor}kg</li>`).join('')}
+                            </ul>
+                            <p><strong>Observação:</strong> ${item.observacao || "Nenhuma"}</p>
+                            <p><strong>Assinatura Transportador:</strong> ${item.assinaturas.transportador || "Pendente"}</p>
+                            <p><strong>Assinatura Cliente:</strong> ${item.assinaturas.cliente || "Pendente"}</p>
+                        `;
+                    } else {
+                        document.getElementById('item-info').innerHTML = `<h2>Item não encontrado.</h2>`;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('item-info').innerHTML = `<h2>Erro ao carregar os detalhes do item. Tente novamente mais tarde.</h2>`;
+                    console.error(error);
+                });
+        }
+
+        function openModal() {
+            const modal = document.getElementById('modal');
+            const overlay = document.getElementById('overlay');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = document.getElementById('item-info').innerHTML;
+            modal.style.display = 'block';
+            overlay.style.display = 'block';
+        }
+
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('modal').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        });
+
+        document.getElementById('overlay').addEventListener('click', function() {
+            document.getElementById('modal').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
