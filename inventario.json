@@ -1,1 +1,45 @@
-[]
+[
+
+  
+    {
+        "id": 1,
+        "transportadora": {
+          "nome": "TRANSCOTEMPO LTDA",
+          "cnpj": "36600687000143"
+        },
+        "cliente": {
+          "nome": "Cliente 1",
+          "telefone": "Telefone",
+          "endereco_origem": {
+            "endereco": "Endereço 1",
+            "bairro": "Bairro 1",
+            "cidade": "Cidade 1",
+            "uf": "Uf 1"
+          },
+          "endereco_destino": {
+            "endereco": "Enderaço 2",
+            "bairro": "Bairro 2",
+            "cidade": "Cidade 2",
+            "uf": "Uf 2"
+          }
+        },
+        "itens": [
+          {
+            "categoria": "ESTAR E JANTAR",
+            "descricao": "CD",
+            "quantidade": 1,
+            "valor": 1
+          }
+        ],
+        "valor_total_declarado": 1,
+        "observacao": "",
+        "data_local": "2024-12-20T20:18:48.117Z",
+        "assinaturas": {
+          "transportador": "",
+          "cliente": ""
+        }
+      }
+
+
+
+]
