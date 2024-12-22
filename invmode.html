@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Ver.css">
+    <link rel="stylesheet" href="Inventario.css">
     <title>Inventário de Mudança</title>
 
 </head>
@@ -16,7 +16,9 @@
         
          <div class="data">  
             <h3>DATA DE EMBARQUE</h3>
-        <p class="center"></p>
+        <p class="center">${item.data_local ? item.data_local.split('T')[0] : "Não disponível"}
+            
+        </p>
         </div>
 
   
@@ -45,47 +47,47 @@
        <h2>Dados do Cliente</h2>
         <div class="label-group">
             <div>
-                <label>Nome:   {Nome do cliente}</label>
+                <label>Nome: ${item.cliente.nome || "Não disponível"}</label>
             
             </div>
             <div>
-                <label style="text-align: end;">Telefone: {Telefone do cliente}</label>
+                <label style="text-align: end;">Telefone: ${item.cliente.telefone || "Não disponível"}</label>
               
             </div>
         </div>
         <div class="label-group">
             <div>
-                <label>Endereço de Origem:</label>
+                <label>Endereço de Origem: ${item.cliente.endereco_origem.endereco || "Não disponível"}</label>
              
             </div>
             <div>
-                <label>Bairro:</label>
+                <label>Bairro: ${item.cliente.endereco_origem.bairro || "Não disponível"}</label>
               
             </div>
             <div>
-                <label>Cidade:</label>
+                <label>Cidade: ${item.cliente.endereco_origem.cidade || "Não disponível"}</label>
                
             </div>
             <div>
-                <label>UF:</label>
+                <label>UF: ${item.cliente.endereco_origem.uf || "Não disponível"}</label>
               
             </div>
         </div>
         <div class="label-group">
             <div>
-                <label>Endereço de Destino:</label>
+                <label>Endereço de Destino: ${item.cliente.endereco_destino.endereco || "Não disponível"}</label>
                
             </div>
             <div>
-                <label>Bairro:</label>
+                <label>Bairro: ${item.cliente.endereco_destino.bairro || "Não disponível"}</label>
                 
             </div>
             <div>
-                <label>Cidade:</label>
+                <label>Cidade: ${item.cliente.endereco_destino.cidade || "Não disponível"}</label>
                 
             </div>
             <div>
-                <label>UF:</label>
+                <label>UF: ${item.cliente.endereco_destino.uf || "Não disponível"}</label>
               
             </div>
         </div>
@@ -125,7 +127,7 @@
                         <td></td> <td>Ar Condicionado</td> <td></td> <td></td> <!-- 3* -->
                     </tr>
                     <tr>
-                        <td>2</td> <td></td> <td></td> <td></td> <!-- 1* -->
+                        <td>2</td> <td>Aparelho de Som</td> <td></td> <td></td> <!-- 1* -->
                         <td></td> <td></td> <td></td> <td></td> <!-- 2* -->
                         <td></td> <td></td> <td></td> <td></td> <!-- 3* -->
                     </tr>
