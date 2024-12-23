@@ -506,32 +506,7 @@
 
                         // Preencher a área de impressão
                         const printableArea = document.getElementById('printable-area');
-                        printableArea.innerHTML = `
-                            <h2>Detalhes do Item</h2>
-                            <p><strong>Transportadora:</strong> ${item.transportadora.nome || "Não disponível"}</p>
-                            <p><strong>CNPJ:</strong> ${item.transportadora.cnpj || "Não disponível"}</p>
-                            <p><strong>Nome do Cliente:</strong> ${item.cliente.nome || "Não disponível"}</p>
-                            <p><strong>Telefone do Cliente:</strong> ${item.cliente.telefone || "Não disponível"}</p>
-                            <h3>Endereço de Origem:</h3>
-                            <p><strong>Endereço:</strong> ${item.cliente.endereco_origem.endereco || "Não disponível"}</p>
-                            <p><strong>Bairro:</strong> ${item.cliente.endereco_origem.bairro || "Não disponível"}</p>
-                            <p><strong>Cidade:</strong> ${item.cliente.endereco_origem.cidade || "Não disponível"}</p>
-                            <p><strong>Estado:</strong> ${item.cliente.endereco_origem.uf || "Não disponível"}</p>
-                            <h3>Endereço de Destino:</h3>
-                            <p><strong>Endereço:</strong> ${item.cliente.endereco_destino.endereco || "Não disponível"}</p>
-                            <p><strong>Bairro:</strong> ${item.cliente.endereco_destino.bairro || "Não disponível"}</p>
-                            <p><strong>Cidade:</strong> ${item.cliente.endereco_destino.cidade || "Não disponível"}</p>
-                            <p><strong>Estado:</strong> ${item.cliente.endereco_destino.uf || "Não disponível"}</p>
-                            <p><strong>Data:</strong> ${item.data_local ? item.data_local.split('T')[0] : "Não disponível"}</p>
-                            <p><strong>Valor Total:</strong> R$ ${item.valor_total_declarado ? item.valor_total_declarado.toFixed(2) : "Não disponível"}</p>
-                            <h3>Itens Transportados:</h3>
-                            <ul>
-                                ${item.itens.map(i => `<li>${i.descricao} - Quantidade: ${i.quantidade}, Valor: ${i.valor}kg</li>`).join('')}
-                            </ul>
-                            <p><strong>Observação:</strong> ${item.observacao || "Nenhuma"}</p>
-                            <p><strong>Assinatura Transportador:</strong> ${item.assinaturas.transportador || "Pendente"}</p>
-                            <p><strong>Assinatura Cliente:</strong> ${item.assinaturas.cliente || "Pendente"}</p>
-                        `;
+                        printableArea.innerHTML = ``;
                     } else {
                         document.getElementById('item-info').innerHTML = `<h2>Item não encontrado.</h2>`;
                     }
