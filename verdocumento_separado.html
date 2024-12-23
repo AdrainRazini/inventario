@@ -49,27 +49,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Ver.css">
+    <link rel="stylesheet" href="Inventario.css">
     <title>Inventário de Mudança</title>
 
 </head>
 <body>
 
-<div class="label-group">
-             <div class="data">  
+  
+
+   
+  <div class="data">  
             <h3>DATA DE EMBARQUE</h3>
-        <p class="center">${item.data_local ? item.data_local.split('T')[0] : "Não disponível"}</p>
+        <p class="center">${item.data_local ? item.data_local.split('T')[0] : "Não disponível"}
+            
+        </p>
         </div>
 
-
-        
-    <h1>Inventário de Mudança</h1>
      
 
-
-
+    <h1>Inventário de Mudança</h1>
+ 
         <h2>Dados da Transportadora</h2>
-       
+        <div class="label-group">
+            
             <div>
                 <label>NOME: TRANSCOTEMPO LTDA</label>
                
@@ -462,7 +464,7 @@
             <li>6- Solto</li>
         </ul>
         
-        <h3>VALOR TOTAL DECLARADO:${item.valor_total_declarado ? item.valor_total_declarado.toFixed(2) : "Não disponível"}</h3>
+        <h3>VALOR TOTAL DECLARADO:</h3>
    
     </div>
     
