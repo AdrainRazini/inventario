@@ -4,22 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualizar Documento</title>
-  
 </head>
 <body>
     <div class="info" id="item-info">
         <h2>Carregando detalhes...</h2>
     </div>
     
-<a class="back-button" href="index.html">Voltar</a>
-    <div class="overlay" id="overlay"></div>
-    <div class="modal" id="modal">
-        <div class="modal-header">
-            <h2>Informações Detalhadas</h2>
-            <button class="close-modal" id="closeModal">Fechar</button>
-        </div>
-        <div class="modal-content" id="modalContent"></div>
-    </div>
+    <a class="back-button" href="index.html">Voltar</a>
 
     <div class="printable" id="printable-area"></div>
 
@@ -485,7 +476,6 @@
 </body>
 </html>
 
-
 `;
 
                         // Preencher a área de impressão
@@ -500,26 +490,6 @@
                     console.error(error);
                 });
         }
-
-        function openModal() {
-            const modal = document.getElementById('modal');
-            const overlay = document.getElementById('overlay');
-            const modalContent = document.getElementById('modalContent');
-            
-            modalContent.innerHTML = document.getElementById('item-info').innerHTML;
-            modal.style.display = 'block';
-            overlay.style.display = 'block';
-        }
-
-        document.getElementById('closeModal').addEventListener('click', function() {
-            document.getElementById('modal').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';
-        });
-
-        document.getElementById('overlay').addEventListener('click', function() {
-            document.getElementById('modal').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';
-        });
     </script>
 </body>
 </html>
