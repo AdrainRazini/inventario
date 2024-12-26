@@ -59,14 +59,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Ver.css">
+    <link rel="stylesheet" href="Inventario.css">
     <title>Inventário de Mudança</title>
 
 </head>
 <body>
-    <h1>Inventário de Mudança</h1>
- 
-        <h2>Dados da Transportadora</h2>
+
+        <h1>Inventário de Mudança</h1>
+     
+
+       
+            <label class="h2">Dados da Transportadora</label>
+       
         <div class="label-group">
             
             <div>
@@ -82,7 +86,7 @@
  
     <!-- Dados do Cliente -->
     <div class="section">
-       <h2>Dados do Cliente</h2>
+       <label class="h2">Dados do Cliente</label>
         <div class="label-group">
             <div>
                 <label>Nome: ${item.cliente.nome || "Não disponível"}</label>
@@ -133,7 +137,6 @@
 
     <!-- Tabela de Itens -->
     <div class="table-container">
-     
         <table>
             <!-- Cabeçalhos principais -->
             <thead>
@@ -467,12 +470,15 @@
         <h3>VALOR TOTAL DECLARADO:</h3>  <h3 style=" border-bottom: solid black 1px;">R$ ${item.valor_total_declarado ? item.valor_total_declarado.toFixed(2) : "Não disponível"}</h3> 
     
    </div>
-   </div>
+   
+    </div>
+    <label class="h2">Observação</label>
+  
 
     <!-- Observações -->
 
     <div class="section">
-        <h2>Observação</h2>
+        
         <div class="footer-note">
         <p>O TRANSPORTADOR DEVERÁ PREENCHER ESTE FORMULÁRIO ANTES DO INÍCIO DO EMBARQUE.  EM CASO DE EVENTUAL SINISTRO, ESTE INVENTÁRIO SERÁ SOLICITADO PELA SEGURADORA.</p>
       
@@ -494,9 +500,12 @@
     </div>
 
     
+    
 </div>
 </body>
 </html>
+
+
 
 `;
 
