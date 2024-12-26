@@ -33,6 +33,7 @@ h1 {
 }
 
 label {
+    width: 100%;
     font-weight: bold;
     display: block;
     font-size: 10px;
