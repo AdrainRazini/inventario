@@ -5,6 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualizar Documento</title>
 </head>
+    <style>
+@media print {
+    /* Remove margens automáticas da página ao imprimir */
+    @page {
+        margin: 0;
+    }
+
+    /* Ajusta margens do corpo para manter o conteúdo visível */
+    body {
+        margin: 1cm;
+    }
+
+    /* Oculta elementos indesejados como cabeçalhos e rodapés gerados pelo navegador */
+    header, footer {
+        display: none;
+    }
+}
+</style>
+
 <body>
     <div class="info" id="item-info">
         <h2>Carregando detalhes...</h2>
