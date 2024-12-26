@@ -128,3 +128,34 @@ h3 {
     justify-content: space-between;
     font-size: 8px;
 }
+
+@media print {
+    /* Ocultar cabeçalho, rodapé e outros elementos indesejados */
+    header, footer, .back-button, .overlay, .modal {
+        display: none;
+    }
+
+    /* Ajustar margens da página impressa */
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Estilo da área imprimível */
+    .printable {
+        display: block;
+    }
+
+    /* Ocultar tudo fora da área imprimível */
+    *:not(.printable) {
+        display: none !important;
+    }
+
+    /* Garantir que a área imprimível preencha a página */
+    .printable {
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+}
+
