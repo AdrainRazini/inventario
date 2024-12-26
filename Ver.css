@@ -146,11 +146,7 @@ h3 {
         display: block;
     }
 
-    /* Ocultar tudo fora da área imprimível */
-    *:not(.printable) {
-        display: none !important;
-    }
-
+   
     /* Garantir que a área imprimível preencha a página */
     .printable {
         width: 100%;
