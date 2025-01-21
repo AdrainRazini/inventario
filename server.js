@@ -1,8 +1,12 @@
 const express = require('express');
-const fs = require('fs');
-const path = require('path');
+const axios = require('axios');
 const app = express();
 const PORT = 3000;
+
+// Configurações do JSONBin.io
+const BIN_ID = '678fddc7ad19ca34f8f22263'; // Substitua com o ID do seu JSONBin
+const JSONBIN_API_KEY = '$2a$10$OxZDEgxeC5Y.h/kAtkCfles8WgToULyKdtyioyVQyBms4eLWjJkJu'; // Substitua com sua API Key do JSONBin
+const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
 
 // Middleware para tratamento de erros
 const errorHandler = (err, req, res, next) => {
@@ -14,27 +18,37 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Servir arquivos estáticos da pasta atual
-app.use(express.static(path.join(__dirname)));
+app.use(express.static('public'));
 
 // Rota para a página inicial
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile('index.html', { root: __dirname });
 });
 
 // Rota para obter o inventário completo
-app.get('/inventario', (req, res) => {
-    fs.readFile('inventario.json', 'utf8', (err, data) => {
-        if (err) return res.status(500).send(err);
-        res.json(JSON.parse(data)); // Envia o inventário completo como JSON
-    });
+app.get('/inventario', async (req, res) => {
+    try {
+        const response = await axios.get(JSONBIN_URL, {
+            headers: {
+                'X-Master-Key': JSONBIN_API_KEY
+            }
+        });
+        res.json(response.data.record); // Retorna o inventário completo
+    } catch (err) {
+        res.status(500).send('Erro ao acessar o inventário.');
+    }
 });
 
 // Rota para adicionar novo item
-app.post('/adicionar', (req, res) => {
-    fs.readFile('inventario.json', 'utf8', (err, data) => {
-        if (err) return res.status(500).send(err);
-        
-        const inventario = JSON.parse(data);
+app.post('/adicionar', async (req, res) => {
+    try {
+        const response = await axios.get(JSONBIN_URL, {
+            headers: {
+                'X-Master-Key': JSONBIN_API_KEY
+            }
+        });
+        const inventario = response.data.record;
+
         const novoItem = {
             id: inventario.length > 0 ? inventario[inventario.length - 1].id + 1 : 1, // Gera um novo ID
             transportadora: req.body.transportadora,
@@ -46,31 +60,47 @@ app.post('/adicionar', (req, res) => {
             assinaturas: req.body.assinaturas
         };
 
-        inventario.push(novoItem); // Adiciona o novo item ao inventário
-        fs.writeFile('inventario.json', JSON.stringify(inventario, null, 2), (err) => {
-            if (err) return res.status(500).send(err);
-            res.status(201).send(novoItem); // Retorna o novo item adicionado
+        inventario.push(novoItem); // Adiciona o novo item
+        await axios.put(JSONBIN_URL, inventario, {
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Master-Key': JSONBIN_API_KEY
+            }
         });
-    });
+        res.status(201).send(novoItem); // Retorna o novo item adicionado
+    } catch (err) {
+        res.status(500).send('Erro ao adicionar novo item.');
+    }
 });
 
 // Rota para deletar um item
-app.delete('/deletar/:id', (req, res) => {
+app.delete('/deletar/:id', async (req, res) => {
     const id = parseInt(req.params.id);
-    fs.readFile('inventario.json', 'utf8', (err, data) => {
-        if (err) return res.status(500).send(err);
-        const inventario = JSON.parse(data);
+    try {
+        const response = await axios.get(JSONBIN_URL, {
+            headers: {
+                'X-Master-Key': JSONBIN_API_KEY
+            }
+        });
+        const inventario = response.data.record;
+
         const index = inventario.findIndex(item => item.id === id); // Encontra o índice do item pelo ID
         if (index === -1) {
             return res.status(404).send('Item não encontrado');
         }
         const itemRemovido = inventario[index]; // Guarda o item que será removido
-        inventario.splice(index, 1); // Remove o item do inventário
-        fs.writeFile('inventario.json', JSON.stringify(inventario, null, 2), (err) => {
-            if (err) return res.status(500).send(err);
-            res.json({ message: 'Item deletado', item: itemRemovido }); // Retorna o item removido
+        inventario.splice(index, 1); // Remove o item
+
+        await axios.put(JSONBIN_URL, inventario, {
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Master-Key': JSONBIN_API_KEY
+            }
         });
-    });
+        res.json({ message: 'Item deletado', item: itemRemovido }); // Retorna o item removido
+    } catch (err) {
+        res.status(500).send('Erro ao deletar item.');
+    }
 });
 
 // Middleware de tratamento de erros
