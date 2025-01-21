@@ -6,7 +6,7 @@ const PORT = 3000;
 // Configurações do JSONBin.io
 const BIN_ID = '678fddc7ad19ca34f8f22263'; // Substitua com o ID do seu JSONBin
 const JSONBIN_API_KEY = '$2a$10$EQv4FQmTrzoxRpg4RDCm9eTGQRCAqBTfy81uGfDWlSJQd2T.d.Apq'; // Substitua com sua API Key do JSONBin
-const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+const JSONBIN_URL = `https://api.jsonbin.io/v3//b/<BIN_ID>`;
 
 // Middleware para tratamento de erros
 const errorHandler = (err, req, res, next) => {
