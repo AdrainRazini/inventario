@@ -25,20 +25,24 @@ h1 {
 .label-group {
     display: flex;
     flex-wrap: wrap;
+ 
+    border-collapse: collapse;
 }
 
 .label-group div {
     flex: 1;
     min-width: 150px;
+    border: solid black 1px;
+    padding: 5px;
+    box-sizing: border-box;
 }
 
 label {
-    width: 100%;
     font-weight: bold;
-    display: block;
     font-size: 10px;
-    border: solid black 1px;
+    display: block;
 }
+
 
 
 .input-field {
