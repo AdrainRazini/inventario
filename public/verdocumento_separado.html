@@ -74,11 +74,11 @@
         <div class="label-group">
             
             <div>
-                <label>NOME: TRANSCOTEMPO LTDA</label>
+                <label>NOME: ${item.transportadora.nome || "Não disponível"}</label>
                
             </div>
             <div>
-                <label style="text-align: end;" >CNPJ: 36.600.687/0001-43</label>
+                <label style="text-align: end;" >CNPJ: ${item.transportadora.cnpj || "Não disponível"}</label>
                 
             </div>
         </div>
