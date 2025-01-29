@@ -91,41 +91,44 @@
         <label>UF:</label>
         <input type="text" name="uf_destino" required>
 
+        <h3>Itens de Mobiliário</h3>
+        <div id="itens-container">
+            <div class="item">
+                <label>Categoria:</label>
+                <select name="movel_categoria[]" required>
+                    <option value="">Selecione uma categoria</option>
+                    <option value="ESTAR E JANTAR">ESTAR E JANTAR</option>
+                    <option value="DORMITÓRIO">DORMITÓRIO</option>
+                    <option value="ESCRITÓRIO">ESCRITÓRIO</option>
+                    <option value="COZINHA / ÁREA">COZINHA / ÁREA</option>
+                    <option value="DIVERSOS">DIVERSOS</option>
+                    <option value="VEÍCULOS">VEÍCULOS</option>
+                </select>
+                
+                <label>Descrição do Móvel:</label>
+                <select name="movel_descricao[]" required>
+                    <option value="">Selecione uma descrição</option>
+                </select>
+                
+                <label>Quantidade:</label>
+                <input type="number" name="movel_quantidade[]" required>
+                
+                <label>Valor (R$):</label>
+                <input type="text" name="movel_valor[]" required oninput="formatarValor(this)" placeholder="R$ 0,00">
+                
+                <button type="button" class="remover-item">Remover</button>
+            </div>
+        </div>
         
-<h3>Itens de Mobiliário</h3>
-<div id="itens-container">
-    <div class="item">
-        <label>ID do Item:</label>
-        <input type="text" name="movel_id[]" readonly>
-        
-        <label>Categoria:</label>
-        <select name="movel_categoria[]" required onchange="atualizarDescricoes(this, this.nextElementSibling)">
-            <option value="">Selecione uma categoria</option>
-            <option value="ESTAR E JANTAR">ESTAR E JANTAR</option>
-            <option value="DORMITÓRIO">DORMITÓRIO</option>
-            <option value="ESCRITÓRIO">ESCRITÓRIO</option>
-            <option value="COZINHA / ÁREA">COZINHA / ÁREA</option>
-            <option value="DIVERSOS">DIVERSOS</option>
-            <option value="VEÍCULOS">VEÍCULOS</option>
-        </select>
-        
-        <label>Descrição do Móvel:</label>
-        <select name="movel_descricao[]" required>
-            <option value="">Selecione uma descrição</option>
-        </select>
-        
-        <label>Quantidade:</label>
-        <input type="number" name="movel_quantidade[]" required>
-        
-        <label>Valor (R$):</label>
-        <input type="text" name="movel_valor[]" required oninput="formatarValor(this)" placeholder="R$ 0,00">
-        
-        <button type="button" class="remover-item">Remover</button>
-    </div>
-</div>
+        <button type="button" id="adicionar-item">Adicionar Móvel</button>
 
-<button type="button" id="adicionar-item">Adicionar Móvel</button>
-
+        <label>Valor Total Declarado (R$):</label>
+        <input type="text" id="valor_total_declarado" name="valor_total_declarado" required readonly>
+        
+        <label>Observação:</label>
+        <textarea name="observacao"></textarea>
+        
+        <button type="submit">Adicionar</button>
     </form>
 
     <script>
@@ -292,57 +295,7 @@
                 loadingMessage.remove();
                 alert('Erro: ' + error.message);
             }
-        }; 
-
-
-let itemId = 1; // Inicializa o contador de IDs
-
-document.getElementById('adicionar-item').onclick = function() {
-    const container = document.getElementById('itens-container');
-    
-    const novoItem = document.createElement('div');
-    novoItem.classList.add('item');
-
-    novoItem.innerHTML = `
-        <label>ID do Item:</label>
-        <input type="text" name="movel_id[]" value="${itemId}" readonly>
-
-        <label>Categoria:</label>
-        <select name="movel_categoria[]" required onchange="atualizarDescricoes(this, this.nextElementSibling)">
-            <option value="">Selecione uma categoria</option>
-            <option value="ESTAR E JANTAR">ESTAR E JANTAR</option>
-            <option value="DORMITÓRIO">DORMITÓRIO</option>
-            <option value="ESCRITÓRIO">ESCRITÓRIO</option>
-            <option value="COZINHA / ÁREA">COZINHA / ÁREA</option>
-            <option value="DIVERSOS">DIVERSOS</option>
-            <option value="VEÍCULOS">VEÍCULOS</option>
-        </select>
-
-        <label>Descrição do Móvel:</label>
-        <select name="movel_descricao[]" required>
-            <option value="">Selecione uma descrição</option>
-        </select>
-
-        <label>Quantidade:</label>
-        <input type="number" name="movel_quantidade[]" required>
-
-        <label>Valor (R$):</label>
-        <input type="text" name="movel_valor[]" required oninput="formatarValor(this)" placeholder="R$ 0,00">
-
-        <button type="button" class="remover-item">Remover</button>
-    `;
-
-    container.appendChild(novoItem);
-    
-    // Adiciona evento de remoção ao botão "Remover"
-    novoItem.querySelector('.remover-item').onclick = function() {
-        novoItem.remove();
-    };
-
-    itemId++; // Incrementa o ID para o próximo item
-};
-
-        
+        };
     </script>
 </body>
 </html>
