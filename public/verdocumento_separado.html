@@ -135,6 +135,92 @@
         </div>
     </div>
 
+
+<table id="tabela" border="1">
+    <thead>
+        <tr>
+            <th>QTD.</th>
+            <th>DESCRIÇÃO</th>
+            <th>EP*</th>
+            <th>VALOR R$</th>
+            <th>QTD.</th>
+            <th>DESCRIÇÃO</th>
+            <th>EP*</th>
+            <th>VALOR R$</th>
+            <th>QTD.</th>
+            <th>DESCRIÇÃO</th>
+            <th>EP*</th>
+            <th>VALOR R$</th>
+        </tr>
+        <tr>
+            <th colspan="4">ESTAR E JANTAR</th>
+            <th colspan="4">DORMITÓRIO</th>
+            <th colspan="4">ESCRITÓRIO</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+    const tabela = document.querySelector("#tabela tbody");
+
+    // Exemplo de array de itens com categorias
+   
+    // Organizando os itens por categoria
+    const categorias = { "ESTAR E JANTAR": [], "DORMITÓRIO": [], "ESCRITÓRIO": [] };
+    itens.forEach(item => {
+        categorias[item.categoria].push(item);
+    });
+
+    // Garantindo que as categorias de itens se encaixem na tabela até 56 linhas
+    let linhaCount = 1;
+
+    for (let i = 1; i <= 56; i++) {
+        let linha = document.createElement("tr");
+
+        // Preenchendo as células da categoria "ESTAR E JANTAR"
+        if (categorias["ESTAR E JANTAR"].length > 0) {
+            let item = categorias["ESTAR E JANTAR"].shift(); // Pega o próximo item da categoria
+            linha.innerHTML += `
+                <td>${item.quantidade}</td><td>${item.descricao}</td><td></td><td>R$${item.valor}</td>
+            `;
+        } else {
+            linha.innerHTML += `<td></td><td></td><td></td><td></td>`;
+        }
+
+        // Preenchendo as células da categoria "DORMITÓRIO"
+        if (categorias["DORMITÓRIO"].length > 0) {
+            let item = categorias["DORMITÓRIO"].shift(); // Pega o próximo item da categoria
+            linha.innerHTML += `
+                <td>${item.quantidade}</td><td>${item.descricao}</td><td></td><td>R$${item.valor}</td>
+            `;
+        } else {
+            linha.innerHTML += `<td></td><td></td><td></td><td></td>`;
+        }
+
+        // Preenchendo as células da categoria "ESCRITÓRIO"
+        if (categorias["ESCRITÓRIO"].length > 0) {
+            let item = categorias["ESCRITÓRIO"].shift(); // Pega o próximo item da categoria
+            linha.innerHTML += `
+                <td>${item.quantidade}</td><td>${item.descricao}</td><td></td><td>R$${item.valor}</td>
+            `;
+        } else {
+            linha.innerHTML += `<td></td><td></td><td></td><td></td>`;
+        }
+
+        // Se não houver mais itens, preencher com números
+        if (linha.innerHTML.trim() === "<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>") {
+            linha.innerHTML = `
+                <td>${linhaCount++}</td><td></td><td></td><td></td>
+                <td>${linhaCount++}</td><td></td><td></td><td></td>
+                <td>${linhaCount++}</td><td></td><td></td><td></td>
+            `;
+        }
+
+        tabela.appendChild(linha);
+    }
+</script>
+
    
      <!-- Tabela de Itens -->
     <div class="table-container">
