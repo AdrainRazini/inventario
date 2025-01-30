@@ -53,7 +53,12 @@ app.post('/adicionar', async (req, res) => {
             id: inventario.length > 0 ? inventario[inventario.length - 1].id + 1 : 1, // Gera um novo ID
             transportadora: req.body.transportadora,
             cliente: req.body.cliente,
-            itens: req.body.itens,
+            itens: req.body.itens.map((item, index) => ({
+                id: index + 1, // Atribui um ID único para cada categoria dentro dos itens
+                nome: item.nome,
+                quantidade: item.quantidade,
+                peso: item.peso
+            })),
             valor_total_declarado: req.body.valor_total_declarado,
             observacao: req.body.observacao,
             data_local: req.body.data_local,
