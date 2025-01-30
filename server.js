@@ -17,6 +17,7 @@ const errorHandler = (err, req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
 // Servir arquivos estáticos da pasta atual
 app.use(express.static('public'));
 
@@ -53,12 +54,7 @@ app.post('/adicionar', async (req, res) => {
             id: inventario.length > 0 ? inventario[inventario.length - 1].id + 1 : 1, // Gera um novo ID
             transportadora: req.body.transportadora,
             cliente: req.body.cliente,
-            itens: req.body.itens.map((item, index) => ({
-                id: index + 1, // Atribui um ID único para cada categoria dentro dos itens
-                nome: item.nome,
-                quantidade: item.quantidade,
-                peso: item.peso
-            })),
+            itens: req.body.itens,
             valor_total_declarado: req.body.valor_total_declarado,
             observacao: req.body.observacao,
             data_local: req.body.data_local,
