@@ -34,11 +34,163 @@
       <label for="cliente_nome">Nome:</label>
       <input type="text" id="cliente_nome" name="cliente_nome" required>
 
-      <label for="cliente_telefone">Telefone:</label>
-      <input type="text" id="cliente_telefone" name="cliente_telefone" placeholder="XX XXXX-XXXX" required>
+    <label for="cliente_telefone">Telefone:</label>
+<input type="tel" id="cliente_telefone" name="cliente_telefone" placeholder="(DD) 9XXXX-XXXX" maxlength="15" required>
+<p id="ddd-info" style="margin-top: 8px; font-weight: bold;"></p>
 
-      <label for="email">E-mail:</label>
-      <input type="text" id="email" name="email" placeholder="seu.email@dominio.com" required>
+
+<script>
+
+
+const DDD_LIST = [
+  { ddd: "11", estado: "São Paulo", regiao: "Região Metropolitana de São Paulo / Região Metropolitana de Jundiaí / Região Geográfica Imediata de Bragança Paulista" },
+  { ddd: "12", estado: "São Paulo", regiao: "Região Metropolitana do Vale do Paraíba e Litoral Norte" },
+  { ddd: "13", estado: "São Paulo", regiao: "Região Metropolitana da Baixada Santista / Vale do Ribeira" },
+  { ddd: "14", estado: "São Paulo", regiao: "Avaré / Bauru / Botucatu / Jaú / Lins / Marília / Ourinhos" },
+  { ddd: "15", estado: "São Paulo", regiao: "Itapetininga / Itapeva / Sorocaba / Tatuí" },
+  { ddd: "16", estado: "São Paulo", regiao: "Araraquara / Franca / Jaboticabal / Ribeirão Preto / São Carlos / Sertãozinho" },
+  { ddd: "17", estado: "São Paulo", regiao: "Barretos / Catanduva / Fernandópolis / Jales / São José do Rio Preto / Votuporanga" },
+  { ddd: "18", estado: "São Paulo", regiao: "Andradina / Araçatuba / Assis / Birigui / Dracena / Presidente Prudente" },
+  { ddd: "19", estado: "São Paulo", regiao: "Americana / Campinas / Limeira / Piracicaba / Rio Claro / São João da Boa Vista" },
+  { ddd: "21", estado: "Rio de Janeiro", regiao: "Rio de Janeiro e Região Metropolitana / Teresópolis" },
+  { ddd: "22", estado: "Rio de Janeiro", regiao: "Cabo Frio / Campos dos Goytacazes / Itaperuna / Macaé / Nova Friburgo" },
+  { ddd: "24", estado: "Rio de Janeiro", regiao: "Angra dos Reis / Petrópolis / Volta Redonda / Piraí" },
+  { ddd: "27", estado: "Espírito Santo", regiao: "Vitória e Região Metropolitana / Colatina / Linhares / Santa Maria de Jetibá" },
+  { ddd: "28", estado: "Espírito Santo", regiao: "Cachoeiro de Itapemirim / Castelo / Itapemirim / Marataízes" },
+  { ddd: "31", estado: "Minas Gerais", regiao: "Belo Horizonte e Região Metropolitana / Conselheiro Lafaiete / Ipatinga / Viçosa" },
+  { ddd: "32", estado: "Minas Gerais", regiao: "Barbacena / Juiz de Fora / Muriaé / São João del-Rei / Ubá" },
+  { ddd: "33", estado: "Minas Gerais", regiao: "Almenara / Caratinga / Governador Valadares / Manhuaçu / Teófilo Otoni" },
+  { ddd: "34", estado: "Minas Gerais", regiao: "Araguari / Araxá / Patos de Minas / Uberlândia / Uberaba" },
+  { ddd: "35", estado: "Minas Gerais", regiao: "Alfenas / Guaxupé / Lavras / Poços de Caldas / Pouso Alegre / Varginha" },
+  { ddd: "37", estado: "Minas Gerais", regiao: "Bom Despacho / Divinópolis / Formiga / Itaúna / Pará de Minas" },
+  { ddd: "38", estado: "Minas Gerais", regiao: "Curvelo / Diamantina / Montes Claros / Pirapora / Unaí" },
+  { ddd: "41", estado: "Paraná", regiao: "Curitiba e Região Metropolitana" },
+  { ddd: "42", estado: "Paraná", regiao: "Ponta Grossa / Guarapuava" },
+  { ddd: "43", estado: "Paraná", regiao: "Apucarana / Londrina" },
+  { ddd: "44", estado: "Paraná", regiao: "Maringá / Campo Mourão / Umuarama" },
+  { ddd: "45", estado: "Paraná", regiao: "Cascavel / Foz do Iguaçu" },
+  { ddd: "46", estado: "Paraná", regiao: "Francisco Beltrão / Pato Branco" },
+  { ddd: "47", estado: "Santa Catarina", regiao: "Balneário Camboriú / Blumenau / Itajaí / Joinville" },
+  { ddd: "48", estado: "Santa Catarina", regiao: "Florianópolis e Região Metropolitana / Criciúma" },
+  { ddd: "49", estado: "Santa Catarina", regiao: "Caçador / Chapecó / Concórdia / Lages" },
+  { ddd: "51", estado: "Rio Grande do Sul", regiao: "Porto Alegre e Região Metropolitana / Santa Cruz do Sul / Litoral Norte" },
+  { ddd: "53", estado: "Rio Grande do Sul", regiao: "Pelotas / Rio Grande" },
+  { ddd: "54", estado: "Rio Grande do Sul", regiao: "Caxias do Sul / Passo Fundo" },
+  { ddd: "55", estado: "Rio Grande do Sul", regiao: "Santa Maria / Santana do Livramento / Santo Ângelo / Uruguaiana" },
+  { ddd: "61", estado: "Distrito Federal/Goiás", regiao: "Todo o Distrito Federal e alguns municípios da RIDE" },
+  { ddd: "62", estado: "Goiás", regiao: "Goiânia e Região Metropolitana / Anápolis / Niquelândia / Porangatu" },
+  { ddd: "63", estado: "Tocantins", regiao: "Todo o estado" },
+  { ddd: "64", estado: "Goiás", regiao: "Caldas Novas / Catalão / Itumbiara / Rio Verde" },
+  { ddd: "65", estado: "Mato Grosso", regiao: "Cuiabá e Região Metropolitana" },
+  { ddd: "66", estado: "Mato Grosso", regiao: "Rondonópolis / Sinop" },
+  { ddd: "67", estado: "Mato Grosso do Sul", regiao: "Todo o estado" },
+  { ddd: "68", estado: "Acre", regiao: "Todo o estado" },
+  { ddd: "69", estado: "Rondônia", regiao: "Todo o estado" },
+  { ddd: "71", estado: "Bahia", regiao: "Salvador e Região Metropolitana" },
+  { ddd: "73", estado: "Bahia", regiao: "Eunápolis / Ilhéus / Porto Seguro / Teixeira de Freitas" },
+  { ddd: "74", estado: "Bahia", regiao: "Irecê / Jacobina / Juazeiro / Xique-Xique" },
+  { ddd: "75", estado: "Bahia", regiao: "Alagoinhas / Feira de Santana / Paulo Afonso / Valença" },
+  { ddd: "77", estado: "Bahia", regiao: "Barreiras / Bom Jesus da Lapa / Guanambi / Vitória da Conquista" },
+  { ddd: "79", estado: "Sergipe", regiao: "Todo o estado" },
+  { ddd: "81", estado: "Pernambuco", regiao: "Recife e Região Metropolitana / Caruaru" },
+  { ddd: "82", estado: "Alagoas", regiao: "Todo o estado" },
+  { ddd: "83", estado: "Paraíba", regiao: "Todo o estado" },
+  { ddd: "84", estado: "Rio Grande do Norte", regiao: "Todo o estado" },
+  { ddd: "85", estado: "Ceará", regiao: "Fortaleza e Região Metropolitana" },
+  { ddd: "86", estado: "Piauí", regiao: "Teresina e Grande Teresina / Parnaíba" },
+  { ddd: "87", estado: "Pernambuco", regiao: "Garanhuns / Petrolina / Salgueiro / Serra Talhada" },
+  { ddd: "88", estado: "Ceará", regiao: "Juazeiro do Norte / Sobral" },
+  { ddd: "89", estado: "Piauí", regiao: "Picos / Floriano" },
+  { ddd: "91", estado: "Pará", regiao: "Belém e Região Metropolitana" },
+  { ddd: "92", estado: "Amazonas", regiao: "Manaus / Região Metropolitana / Parintins" },
+  { ddd: "93", estado: "Pará", regiao: "Santarém / Altamira" },
+  { ddd: "94", estado: "Pará", regiao: "Marabá" },
+  { ddd: "95", estado: "Roraima", regiao: "Todo o estado" },
+  { ddd: "96", estado: "Amapá", regiao: "Todo o estado" },
+  { ddd: "97", estado: "Amazonas", regiao: "Interior do estado" },
+  { ddd: "98", estado: "Maranhão", regiao: "São Luís e Região Metropolitana" },
+  { ddd: "99", estado: "Maranhão", regiao: "Caxias / Codó / Imperatriz" }
+];
+
+
+  const telefoneInput = document.getElementById('cliente_telefone');
+
+  telefoneInput.addEventListener('input', function (e) {
+    let value = telefoneInput.value.replace(/\D/g, '');
+
+    // Limita a 11 dígitos (2 DDD + 9 número)
+    if (value.length > 11) value = value.slice(0, 11);
+
+    // Aplica a máscara
+    let formatted = value;
+
+    if (value.length > 0) {
+      formatted = `(${value.slice(0, 2)}`;
+    }
+    if (value.length >= 3) {
+      formatted += `) ${value.slice(2, 7)}`;
+    }
+    if (value.length >= 8) {
+      formatted += `-${value.slice(7)}`;
+    }
+
+    telefoneInput.value = formatted;
+  });
+
+  // Impede que o usuário trave ao apagar parênteses ou traço
+  telefoneInput.addEventListener('keydown', function (e) {
+    const key = e.key;
+    if ((key === 'Backspace' || key === 'Delete')) {
+      const cursor = telefoneInput.selectionStart;
+      const prevChar = telefoneInput.value[cursor - 1];
+
+      if (['(', ')', '-', ' '].includes(prevChar)) {
+        // Pula o caractere formatador ao apagar
+        telefoneInput.setSelectionRange(cursor - 1, cursor - 1);
+      }
+    }
+  });
+
+ const dddInfo = document.getElementById('ddd-info');
+
+  telefoneInput.addEventListener('input', function () {
+    const ddd = telefoneInput.value.replace(/\D/g, '').slice(0, 2);
+    const entry = DDD_LIST.find(item => item.ddd === ddd);
+
+    if (entry) {
+      dddInfo.textContent = `${entry.estado} - ${entry.regiao}`;
+    } else {
+      dddInfo.textContent = '';
+    }
+  });
+
+</script>
+
+
+
+   <label for="email">E-mail:</label>
+<input
+  type="email"
+  id="email"
+  name="email"
+  placeholder="seu.email@dominio.com"
+  required
+  maxlength="100"
+  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+  title="Digite um e-mail válido, como seu.email@dominio.com"
+/>
+
+<script>
+  const emailInput = document.getElementById('email');
+
+  emailInput.addEventListener('input', function () {
+    const email = emailInput.value;
+    const isValid = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(email);
+
+    emailInput.style.borderColor = isValid ? '' : 'red';
+  });
+</script>
+
     </div>
 
     <!-- Endereço de Origem -->
