@@ -17,56 +17,69 @@
 
   <!-- Estilo do botão lateral do WhatsApp -->
   <style>
-   .side-tab {
-  position: fixed;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-  width: 50px;
-  height: 50px;
-  background-color: #25d366;
-  color: white;
-  border-radius: 8px 0 0 8px;
-  cursor: pointer;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-  transition: width 0.3s ease, height 0.3s ease, padding 0.3s ease;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-  display: flex;
-  align-items: center;
-}
+    .side-tab {
+      position: fixed;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      background-color: #25d366;
+      color: white;
+      border-radius: 8px 0 0 8px;
+      cursor: pointer;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+      transition: width 0.3s ease, height 0.3s ease, padding 0.3s ease;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+    }
 
-.side-tab.open {
-  width: 260px;
-  height: auto;
-  padding: 10px;
-}
+    .side-tab.open {
+      width: 300px;
+      height: auto;
+      padding: 10px;
+    }
 
-.side-tab .icon {
-  font-size: 28px;
-  width: 50px;
-  height: 50px;
-  text-align: center;
-  line-height: 50px;
-  flex-shrink: 0;
-}
+    .side-tab .icon {
+      font-size: 28px;
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      flex-shrink: 0;
+    }
 
-.side-tab .content {
-  margin-left: 10px;
-  opacity: 0;
-  white-space: nowrap;
-  transition: opacity 0.3s ease 0.3s;
-  pointer-events: none;
-  user-select: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+    .side-tab .content {
+      margin-left: 10px;
+      opacity: 0;
+      white-space: nowrap;
+      transition: opacity 0.3s ease 0.3s;
+      pointer-events: none;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
 
-.side-tab.open .content {
-  opacity: 1;
-  pointer-events: auto;
-}
+    .side-tab.open .content {
+      opacity: 1;
+      pointer-events: auto;
+      user-select: auto;
+      white-space: normal;
+    }
+
+    .side-tab a {
+      color: white;
+      text-decoration: underline;
+    }
+
+    .side-tab a:hover,
+    .side-tab a:focus {
+      color: #075e54;
+      text-decoration: none;
+    }
 
 
 .search-bar {
@@ -207,19 +220,35 @@
       <!-- Cards serão inseridos dinamicamente -->
     </div>
   </main>
-
+<!-- Botão lateral para suporte via WhatsApp -->
   <!-- Botão lateral para suporte via WhatsApp -->
-<div class="side-tab" id="whatsapp-tab" title="Suporte WhatsApp">
-  <div class="icon" id="whatsapp-icon">
-    <i class="fab fa-whatsapp" id="icon-inner"></i>
-  </div>
-  <div class="content">
-    <strong>Suporte</strong>
-    <br/> WhatsApp: (99) 99999-9999
-    <br/> Telefone: 3333-3333
-    <br/> Email: index@gmail.com
-  </div>
+  <div
+    class="side-tab"
+    id="whatsapp-tab"
+    title="Suporte WhatsApp"
+    role="complementary"
+    aria-label="Suporte via WhatsApp"
+  >
+    <div class="icon" id="whatsapp-icon" aria-hidden="true">
+  <i id="icon-inner" class="fab fa-whatsapp"></i>
 </div>
+
+    <div class="content" tabindex="0">
+      <strong>Suporte</strong>
+      <br />
+      <a
+        href="https://api.whatsapp.com/send?phone=554199671804&text=Suporte!"
+        aria-label="Enviar mensagem para suporte WhatsApp"
+        target="_blank"
+        rel="noopener noreferrer"
+        >WhatsApp: (41) 9967-1804</a
+      >
+      <br />
+      Telefone: 4003-4915
+      <br />
+      Email: <a href="mailto:index@gmail.com">index@gmail.com</a>
+    </div>
+  </div>
 
 
 
