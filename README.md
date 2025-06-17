@@ -2,7 +2,7 @@
 # 📦 2025: Inventário
 
 Olá a todos! 👋  
-Seja bem-vindo ao repositório do projeto **Sistema de Inventário – Para Empresas**!
+Seja bem-vindo ao repositório do projeto **Sistema de Inventário – Para Empresa**!
 
 ---
 
