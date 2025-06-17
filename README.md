@@ -22,15 +22,15 @@ Este projeto foi desenvolvido com foco na automação da **geração de document
 | Front-End | Back-End |
 |-----------|----------|
 | ![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white) | ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white) |
-| ![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white) | |
-| ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) | |
+| ![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white) | ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black) |
+| ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) | ![JSONBin](https://img.shields.io/badge/JSONBin-2c3e50?style=for-the-badge&logo=json&logoColor=white) |
 
 📦 Bibliotecas adicionais:
 - [GSAP](https://greensock.com/gsap/) – Animações fluidas
 - [AOS](https://michalsnik.github.io/aos/) – Animações em rolagem
 - [Font Awesome](https://fontawesome.com/) – Ícones personalizados
-
----
+- [Firebase](https://firebase.google.com/) – Autenticação, Firestore e hospedagem opcional
+- [JSONBin](https://jsonbin.io/) – Armazenamento remoto rápido de dados em JSON
 
 ## 📁 Estrutura do Projeto
 
