@@ -1,4 +1,3 @@
-#  2025: Inventario
 
 # 📦 2025: Inventário
 
