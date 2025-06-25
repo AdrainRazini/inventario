@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formulário de Mudança</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+  margin: 0;
+  padding: 20px;
+}
+
+form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  max-width: 900px;
+  margin: auto;
+}
+
+@media (min-width: 768px) {
+  form {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.grupo.amarelo {
+  background: #ffc107;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+input[type="number"],
+select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.flex-row > * {
+  flex: 1 1 45%;
+  min-width: 120px;
+}
+
+.flex-row input[type="checkbox"] {
+  width: auto;
+}
+
+button {
+  grid-column: 1 / -1;
+  padding: 12px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+
+</style>
+</head>
+<body>
+
+  <h2>Formulário de Mudança</h2>
+  <form>
+    <div class="grupo amarelo">
+      <label for="uf-origem">Quero me mudar de:</label>
+      <div class="flex-row">
+        <select id="uf-origem" name="uf_origem" required></select>
+        <select name="cidade_origem" required>
+          <option>Curitiba</option>
+          <option>Londrina</option>
+        </select>
+      </div>
+      <input type="text" name="bairro_origem" placeholder="Bairro" required />
+      <div class="radio-group">
+        <label><input type="radio" name="tipo_origem" value="Casa" checked> Casa</label>
+        <label><input type="radio" name="tipo_origem" value="Apartamento"> Apartamento</label>
+      </div>
+      <div class="flex-row">
+        <label for="andar_origem">Andar</label>
+        <input type="number" id="andar_origem" name="andar_origem" min="0" style="width: 60px;" />
+        <label><input type="checkbox" name="elevador_origem"> com elevador</label>
+      </div>
+    </div>
+
+    <div class="grupo">
+      <label for="uf-destino">Para:</label>
+      <div class="flex-row">
+        <select id="uf-destino" name="uf_destino" required></select>
+        <select name="cidade_destino" required>
+        </select>
+      </div>
+      <input type="text" name="bairro_destino" placeholder="Bairro" required />
+      <div class="radio-group">
+        <label><input type="radio" name="tipo_destino" value="Casa" checked> Casa</label>
+        <label><input type="radio" name="tipo_destino" value="Apartamento"> Apartamento</label>
+      </div>
+      <div class="flex-row">
+        <label for="andar_destino">Andar</label>
+        <input type="number" id="andar_destino" name="andar_destino" min="0" style="width: 60px;" />
+        <label><input type="checkbox" name="elevador_destino"> com elevador</label>
+      </div>
+    </div>
+
+    <div class="grupo">
+      <label for="data_mudanca">Data da mudança</label>
+      <input type="date" id="data_mudanca" name="data_mudanca" required />
+      <label>A data é flexível?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="data_flexivel" value="Sim" checked> Sim</label>
+        <label><input type="radio" name="data_flexivel" value="Não"> Não</label>
+      </div>
+    </div>
+
+    <div class="grupo">
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required />
+
+      <label for="email">E-mail</label>
+      <input type="email" id="email" name="email" placeholder="seu.email@dominio.com" required />
+
+      <label for="email_confirma">Confirme seu e-mail</label>
+      <input type="email" id="email_confirma" name="email_confirma" placeholder="seu.email@dominio.com" required />
+
+      <label for="fone1">Fone 1</label>
+      <input type="tel" id="fone1" name="fone1" placeholder="XX XXXX-XXXX" required />
+
+      <label for="fone1_confirma">Escreva de novo o Fone 1</label>
+      <input type="tel" id="fone1_confirma" name="fone1_confirma" placeholder="XX XXXX-XXXX" required />
+
+      <label for="fone2">Fone 2 (opcional)</label>
+      <input type="tel" id="fone2" name="fone2" placeholder="XX XXXX-XXXX" />
+    </div>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+<script type="module" src="js/cidade-estados-brasil.js"></script>
+<script type="module" src="js/add.js"></script>
+</body>
+</html>
