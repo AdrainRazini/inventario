@@ -1,0 +1,1042 @@
+[
+  {
+    "id": 1,
+    "transportadora": {
+      "nome": "TRANSKOTEMPO LTDA",
+      "cnpj": "59521601000192"
+    },
+    "cliente": {
+      "nome": "Adrian Teste cotação grande",
+      "telefone": "(41) 99999-999",
+      "endereco_origem": {
+        "endereco": "Rua x",
+        "bairro": "Centro",
+        "cidade": "Acrelândia",
+        "uf": "AC",
+        "complemento_origem": "Casa",
+        "andar_origem": "",
+        "elevador_origem": null
+      },
+      "endereco_destino": {
+        "endereco": "Rua x2",
+        "bairro": "Centro ",
+        "cidade": "Acrelândia",
+        "uf": "AC",
+        "complemento_destino": "Casa",
+        "andar_destino": "",
+        "elevador_destino": null
+      }
+    },
+    "itens": [
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Abajour",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Aparelho-Som",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Ar-Condicionado",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Arranjos-Ornamentais",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Banco-Piano",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Banqueta",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Bar",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Biombo",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Buffet-Pequeno",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Buffet-Grande",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Buffet-com-Cristal",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "CD",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Cadeira-Balanço",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Cadeira-de-Braço",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Cadeira-de-Criança",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Cadeira-Simples",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Caixa-de-Som-Peq",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Caixa-de-Som-Gde",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Carrinho-de-Cha",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Console",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Cristaleira",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Discos",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "DVD-Player",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "DVD",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Espelhos",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Estante-Alta",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Estante-Baixa",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Lustre-Luminaria",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Mármore-Granito",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Mesa-de-Centro",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Mesa-Dobravel",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Mesa-Elastica",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Mesa-Jantar",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Mesa-Lateral",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Mesa-de-Telefone",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Mesa-TV",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Piano-Armario",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Piano-Apartamento",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Piano-Cauda",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Poltrona",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Rack",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Radio",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Relogio-de-Parede",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Sofa-2-Almofadas",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Sofa-3-Almofadas",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Sofa-4-Almofadas",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Tapete-Pequeno",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Tapete-Grande",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "TV-Preto-e-Branco",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "TV-Cores",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Video-Cassete",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESTAR E JANTAR",
+        "descricao": "Vidro-Mesa",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DORMITÓRIO",
+        "descricao": "Arca-Baú",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DORMITÓRIO",
+        "descricao": "Ar-Condicionado",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DORMITÓRIO",
+        "descricao": "Armário-2-Portas",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DORMITÓRIO",
+        "descricao": "Armário-3-Portas",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DORMITÓRIO",
+        "descricao": "Armário-4-Portas",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DORMITÓRIO",
+        "descricao": "Armário-Duplex",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DORMITÓRIO",
+        "descricao": "Cama-Beliche",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DORMITÓRIO",
+        "descricao": "Cama-Berço",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DORMITÓRIO",
+        "descricao": "Cama-Casal",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DORMITÓRIO",
+        "descricao": "Cama-Criança",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DORMITÓRIO",
+        "descricao": "Cama-Solteiro",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DORMITÓRIO",
+        "descricao": "Cama-Dobrável",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DORMITÓRIO",
+        "descricao": "Carrinho-Bebê",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DORMITÓRIO",
+        "descricao": "Cesto-para-Roupas",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DORMITÓRIO",
+        "descricao": "Colchão-Berço",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DORMITÓRIO",
+        "descricao": "Colchão-Casal",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DORMITÓRIO",
+        "descricao": "Colchão-Solteiro",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DORMITÓRIO",
+        "descricao": "Cômoda-Penteadeira",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DORMITÓRIO",
+        "descricao": "Mala-Pequena",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DORMITÓRIO",
+        "descricao": "Mala-Grande",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DORMITÓRIO",
+        "descricao": "Maquina-Costura",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DORMITÓRIO",
+        "descricao": "Mesa-Cabeceira",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DORMITÓRIO",
+        "descricao": "Sofa-Cama",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESCRITÓRIO",
+        "descricao": "Armário-de-Aço",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESCRITÓRIO",
+        "descricao": "Arquivo",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESCRITÓRIO",
+        "descricao": "Cadeira-Estofada",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESCRITÓRIO",
+        "descricao": "Calculadora-Manual",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESCRITÓRIO",
+        "descricao": "Calculadora-Elétrica",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESCRITÓRIO",
+        "descricao": "Calculadora-Eletrônica",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESCRITÓRIO",
+        "descricao": "Computador",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESCRITÓRIO",
+        "descricao": "Escrivaninha-Grande",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESCRITÓRIO",
+        "descricao": "Escrivaninha-Pequena",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESCRITÓRIO",
+        "descricao": "Escrivaninha-em-L",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESCRITÓRIO",
+        "descricao": "Estante-Madeira",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESCRITÓRIO",
+        "descricao": "Estante-Aço",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESCRITÓRIO",
+        "descricao": "Formulários-DVS",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESCRITÓRIO",
+        "descricao": "Impressora",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESCRITÓRIO",
+        "descricao": "Máquina-de-Escrever",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESCRITÓRIO",
+        "descricao": "Máquina-Elétrica",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESCRITÓRIO",
+        "descricao": "Material-Escritorio",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESCRITÓRIO",
+        "descricao": "Mesa-de-Reunião",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESCRITÓRIO",
+        "descricao": "Cofre",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "ESCRITÓRIO",
+        "descricao": "Monitor",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "COZINHA / ÁREA",
+        "descricao": "Aquecedor",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "COZINHA / ÁREA",
+        "descricao": "Armário-Alto",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "COZINHA / ÁREA",
+        "descricao": "Armário-Baixo",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "COZINHA / ÁREA",
+        "descricao": "Armário-Parede",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "COZINHA / ÁREA",
+        "descricao": "Balança",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "COZINHA / ÁREA",
+        "descricao": "Batedeira",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "COZINHA / ÁREA",
+        "descricao": "Botijao-de-Gas",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "COZINHA / ÁREA",
+        "descricao": "Enceradeira",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "COZINHA / ÁREA",
+        "descricao": "Espremedor",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "COZINHA / ÁREA",
+        "descricao": "Exaustor",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "COZINHA / ÁREA",
+        "descricao": "Forno",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "COZINHA / ÁREA",
+        "descricao": "Filtro",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "COZINHA / ÁREA",
+        "descricao": "Fogão",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "COZINHA / ÁREA",
+        "descricao": "Freezer",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "COZINHA / ÁREA",
+        "descricao": "Geladeira",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "COZINHA / ÁREA",
+        "descricao": "Lava-Louças",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "COZINHA / ÁREA",
+        "descricao": "Lava-Roupas",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "COZINHA / ÁREA",
+        "descricao": "Liquidificador",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "COZINHA / ÁREA",
+        "descricao": "Mesa",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "COZINHA / ÁREA",
+        "descricao": "Microondas",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "COZINHA / ÁREA",
+        "descricao": "Moedor",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "COZINHA / ÁREA",
+        "descricao": "Secadora",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "COZINHA / ÁREA",
+        "descricao": "Sucata",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DIVERSOS",
+        "descricao": "Artigos-Esportivos",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DIVERSOS",
+        "descricao": "Aspirador-de-Pó",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DIVERSOS",
+        "descricao": "Bebidas-Lacradas",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DIVERSOS",
+        "descricao": "Bicicleta",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DIVERSOS",
+        "descricao": "Máquina-de-Lavar",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DIVERSOS",
+        "descricao": "Cortinas",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DIVERSOS",
+        "descricao": "Cristais",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DIVERSOS",
+        "descricao": "Esculturas",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DIVERSOS",
+        "descricao": "Ferramentas",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DIVERSOS",
+        "descricao": "Filmadora",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DIVERSOS",
+        "descricao": "Instrumentos-Musicais",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DIVERSOS",
+        "descricao": "Livros",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DIVERSOS",
+        "descricao": "Louças",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DIVERSOS",
+        "descricao": "Objeto-Uso-Pessoal",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DIVERSOS",
+        "descricao": "Perfume-Maq",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DIVERSOS",
+        "descricao": "Porcelana",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DIVERSOS",
+        "descricao": "Prataria",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DIVERSOS",
+        "descricao": "Projetor",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DIVERSOS",
+        "descricao": "Quadros-e-Telas",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DIVERSOS",
+        "descricao": "Roupas-Pessoais",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DIVERSOS",
+        "descricao": "Cama",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DIVERSOS",
+        "descricao": "Mesa",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "DIVERSOS",
+        "descricao": "Banho",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "VEÍCULOS",
+        "descricao": "Automovel",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      },
+      {
+        "categoria": "VEÍCULOS",
+        "descricao": "Moto",
+        "quantidade": 1,
+        "valor": 1,
+        "estado": "3"
+      }
+    ],
+    "valor_total_declarado": 1,
+    "observacao": "",
+    "data_local": "2025-06-16T18:48:01.426Z",
+    "assinaturas": {
+      "transportador": "",
+      "cliente": "Adrian Teste cotação grande",
+      "email": "contato05@transcotempo.com.br"
+    }
+  }
+]

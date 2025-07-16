@@ -1,0 +1,88 @@
+  // Salvamento de dados
+    const firstCategoriaSelect = document.querySelector('select[name="movel_categoria[]"]');
+    const firstDescricaoSelect = document.querySelector('select[name="movel_descricao[]"]');
+    if (firstCategoriaSelect && firstDescricaoSelect) {
+        firstCategoriaSelect.onchange = () => atualizarDescricoes(firstCategoriaSelect, firstDescricaoSelect);
+    }
+
+    document.getElementById('form-adicionar').onsubmit = async function (event) {
+        event.preventDefault();
+        const loadingMessage = document.createElement('div');
+        loadingMessage.textContent = 'Adicionando item...';
+        document.body.appendChild(loadingMessage);
+
+        const formData = new FormData(event.target);
+        const data = {
+            transportadora: {
+                nome: "TRANSKOTEMPO LTDA",
+                cnpj: "59521601000192"
+            },
+            cliente: {
+                nome: formData.get('cliente_nome'),
+                telefone: formData.get('cliente_telefone'),
+                endereco_origem: {
+                    endereco: formData.get('endereco_origem'),
+                    bairro: formData.get('bairro_origem'),
+                    cidade: formData.get('cidade_origem'),
+                    uf: formData.get('uf_origem'),
+                    complemento_origem: formData.get('tipo_origem'),
+                    andar_origem : formData.get('andar_origem'),
+                    elevador_origem: formData.get('elevador_origem'),
+                },
+                endereco_destino: {
+                    endereco: formData.get('endereco_destino'),
+                    bairro: formData.get('bairro_destino'),
+                    cidade: formData.get('cidade_destino'),
+                    uf: formData.get('uf_destino'),
+                    complemento_destino: formData.get('tipo_destino'),
+                    andar_destino: formData.get('andar_destino'),
+                    elevador_destino: formData.get('elevador_destino'),
+                }
+            },
+            itens: Array.from(formData.getAll('movel_descricao[]')).map((descricao, i) => ({
+                categoria: formData.getAll('movel_categoria[]')[i],
+                descricao,
+                quantidade: parseInt(formData.getAll('movel_quantidade[]')[i]),
+                valor: parseFloat(formData.getAll('movel_valor[]')[i].replace(/[^\d]/g, '')) / 100,
+                estado: formData.getAll('movel_estado[]')[i]
+            })),
+            valor_total_declarado: parseFloat(formData.get('valor_total_declarado').replace(/[^\d]/g, '')) / 100,
+            observacao: formData.get('observacao'),
+            data_local: new Date().toISOString(),
+            assinaturas: {
+                transportador: "",
+                cliente: formData.get('cliente_nome'),
+                email: formData.get('email'),
+              
+            }
+        };
+
+        try {
+            const response = await fetch('/adicionar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            loadingMessage.remove();
+            if (!response.ok) throw new Error('Erro ao adicionar item.');
+            const responseData = await response.json();
+            window.location.href = 'index.html';
+
+        } catch (error) {
+            loadingMessage.remove();
+            alert('Erro: ' + error.message);
+        }
+    };
+
+
+
+
+
+
+
+
+    
+    
