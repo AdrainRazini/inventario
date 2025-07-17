@@ -160,7 +160,10 @@
     </ul>
   </nav>
 </header>
-<script>
+<script type="module">
+  import { auth } from "./js/firebase.js";
+  import { signOut } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js";
+
   const userImg = document.getElementById('user');
   const loginBtn = document.getElementById('login-button');
 
@@ -173,7 +176,7 @@
   if (userName) {
     document.getElementById('username-display').textContent = userName;
     loginBtn.textContent = 'Sair';
-    loginBtn.onclick = sair;
+    loginBtn.onclick = logout; // corrige aqui
   } else {
     loginBtn.textContent = 'Entrar';
     loginBtn.onclick = () => window.location.href = 'login.html';
@@ -184,11 +187,16 @@
     window.location.href = destino;
   });
 
-  function sair() {
-    localStorage.removeItem('username');
-    localStorage.removeItem('useremail');
-    localStorage.removeItem('userphoto');
-    window.location.reload();
+  async function logout() {
+    try {
+      await signOut(auth); // logout real do Firebase
+      localStorage.removeItem('username');
+      localStorage.removeItem('useremail');
+      localStorage.removeItem('userphoto');
+      window.location.reload(); // ou redirecionar para login
+    } catch (error) {
+      console.error("Erro ao fazer logout:", error);
+    }
   }
 </script>
 
