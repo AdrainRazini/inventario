@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Documento</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<link rel="icon" sizes="192x192" href="https://static.wixstatic.com/media/c4bee6_f6158e93a0c04c8f9eeaba387e610940%7Emv2.png/v1/fill/w_192%2Ch_192%2Clg_1%2Cusm_0.66_1.00_0.01/c4bee6_f6158e93a0c04c8f9eeaba387e610940%7Emv2.png" type="image/png">
+
+</head>
+    <style>
+    
+    @media print {
+    @page {
+        margin: 0;
+    }
+
+    body {
+        margin: 1cm;
+    }
+
+    header, footer, #back-button {
+        display: none;
+    }
+}
+
+
+
+.button {
+  align-self: flex-start;
+  background-color: rgb(42, 42, 243);
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover,
+.button:focus {
+ background-color: rgb(6, 6, 239);
+  outline: none;
+}
+
+</style>
+
+<body>
+    <div class="info" id="item-info">
+        <h2>Carregando detalhes...</h2>
+    </div>
+    
+    <button id="back-button" class="button" onclick="voltar_url()" >Voltar</button>
+       <script>
+      function voltar_url() {
+      window.location.href = 'index.html';
+    }
+      </script>
+
+    <div class="printable" id="printable-area"></div>
+
+
+
+
+<script type="module" src="js/firebase.js"></script>
+
+
+<script type="module">
+// ver-item.html
+import { db } from './js/firebase.js'; // ✅ Firebase já está configurado nesse arquivo
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
+
+// Obtém o ID do item da URL
+const urlParams = new URLSearchParams(window.location.search);
+const itemId = urlParams.get("id");
+
+if (itemId) {
+  const docRef = doc(db, "inventario", itemId);
+  getDoc(docRef).then((docSnap) => {
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      // Agora você pode popular a tela com os dados:
+      console.log(data);
+      // (use document.querySelector para preencher os elementos)
+    } else {
+      console.error("Documento não encontrado.");
+    }
+  }).catch((error) => {
+    console.error("Erro ao buscar documento:", error);
+  });
+} else {
+  console.error("ID do item não especificado na URL.");
+}
+
+
+  // 🔍 Obter parâmetro da URL
+  function getQueryParameter(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+  }
+
+  // Função principal
+  async function main() {
+    const itemId = getQueryParameter("itemId");
+    const infoDiv = document.getElementById("item-info");
+
+    if (!itemId) {
+      infoDiv.innerHTML = `<h2>ID do item não fornecido.</h2>`;
+      return;
+    }
+
+    const docRef = doc(db, "produtos", itemId);
+    const docSnap = await getDoc(docRef);
+
+    if (!docSnap.exists()) {
+      infoDiv.innerHTML = `<h2>Item não encontrado.</h2>`;
+      return;
+    }
+
+    const item = docSnap.data();
+    infoDiv.innerHTML = `
+    
+  <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/doc.css">
+    <title>Inventário de Mudança</title>
+
+</head>
+<body>
+
+        <h1>Inventário de Mudança</h1>
+     
+
+       
+            <label class="h2">Dados da Transportadora</label>
+       
+        <div class="label-group">
+            
+            <div>
+                <label>NOME: ${item.transportadora.nome || "Não disponível"}</label>
+               
+            </div>
+            <div>
+                <label style="text-align: end;" >CNPJ: ${item.transportadora.cnpj || "Não disponível"}</label>
+                
+            </div>
+        </div>
+    </div>
+ 
+    <!-- Dados do Cliente -->
+    <div class="section">
+       <label class="h2">Dados do Cliente</label>
+        <div class="label-group">
+            <div>
+                <label>Nome: ${item.cliente.nome || "Não disponível"}</label>
+            
+            </div>
+            <div>
+                <label style="text-align: end;">Telefone: ${item.cliente.telefone || "Não disponível"}</label>
+              
+            </div>
+        </div>
+        <div class="label-group">
+            <div>
+                <label>Endereço de Origem: ${item.cliente.endereco_origem.endereco || "Não disponível"}</label>
+             
+            </div>
+            <div>
+                <label>Bairro: ${item.cliente.endereco_origem.bairro || "Não disponível"}</label>
+              
+            </div>
+            <div>
+                <label>Cidade: ${item.cliente.endereco_origem.cidade || "Não disponível"}</label>
+               
+            </div>
+            <div>
+                <label>UF: ${item.cliente.endereco_origem.uf || "Não disponível"}</label>
+              
+            </div>
+        </div>
+        <div class="label-group">
+            <div>
+                <label>Endereço de Destino: ${item.cliente.endereco_destino.endereco || "Não disponível"}</label>
+               
+            </div>
+            <div>
+                <label>Bairro: ${item.cliente.endereco_destino.bairro || "Não disponível"}</label>
+                
+            </div>
+            <div>
+                <label>Cidade: ${item.cliente.endereco_destino.cidade || "Não disponível"}</label>
+                
+            </div>
+            <div>
+                <label>UF: ${item.cliente.endereco_destino.uf || "Não disponível"}</label>
+              
+            </div>
+        </div>
+    </div>
+
+
+
+
+   
+     <!-- Tabela de Itens -->
+    <div class="table-container">
+     
+        <table>
+            <!-- Cabeçalhos principais -->
+            <thead>
+                <tr>
+                    <th>QTD.</th>
+                    <th>DESCRIÇÃO</th>
+                    <th>EP*</th>
+                    <th>VALOR R$</th>
+                    <th>QTD.</th>
+                    <th>DESCRIÇÃO</th>
+                    <th>EP*</th>
+                    <th>VALOR R$</th>
+                    <th>QTD.</th>
+                    <th>DESCRIÇÃO</th>
+                    <th>EP*</th>
+                    <th>VALOR R$</th>
+                </tr>
+                <tr>
+                    <th colspan="4">ESTAR E JANTAR</th>
+                    <th colspan="4">DORMITÓRIO</th>
+                    <th colspan="4">ESCRITÓRIO</th>
+                </tr>
+                <tbody>
+                
+                    <!-- Linhas preenchidas com dados -->
+<tr>
+   <td class="Qtd-Abajour"></td> <td>ABAJOUR</td> <td class="estado-Abajour"></td> <td class="Valor-Abajour"></td>
+   <td class="Qtd-Arca-Baú"></td> <td>ARCA BAÚ</td> <td class="estado-Arca-Baú"></td> <td class="Valor-Arca-Baú"></td>
+   <td class="Qtd-Ar-Condicionado"></td> <td>AR CONDICIONADO</td> <td class="estado-Ar-Condicionado"></td> <td class="Valor-Ar-Condicionado"></td>
+</tr>
+<tr>
+    <td class="Qtd-Aparelho-Som"></td> <td>APARELHO SOM</td> <td class="estado-Aparelho-Som"></td> <td class="Valor-Aparelho-Som"></td> <!-- 1* -->
+    <td class="Qtd-Ar-Condicionado"></td> <td>AR CONDICIONADO</td> <td class="estado-Ar-Condicionado"></td> <td class="Valor-Ar-Condicionado"></td> <!-- 2* -->
+    <td class="Qtd-Armário-de-Aço"></td> <td>ARMÁRIO DE AÇO</td> <td class="estado-Armário-de-Aço"></td> <td class="Valor-Armário-de-Aço"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Ar-Condicionado"></td> <td>AR CONDICIONADO</td> <td class="estado-Ar-Condicionado"></td> <td class="Valor-Ar-Condicionado"></td> <!-- 1* -->
+    <td class="Qtd-Armário-2-Portas"></td> <td>ARMÁRIO 2 PORTAS</td> <td class="estado-Armário-2-Portas"></td> <td class="Valor-Armário-2-Portas"></td> <!-- 2* -->
+    <td class="Qtd-Arquivo"></td> <td>ARQUIVO</td> <td class="estado-Arquivo"></td> <td class="Valor-Arquivo"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Arranjos-Ornamentais"></td> <td>ARRANJOS ORNAM.</td> <td class="estado-Arranjos-Ornamentais"></td> <td class="Valor-Arranjos-Ornamentais"></td> <!-- 1* -->
+    <td class="Qtd-Armário-3-Portas"></td> <td>ARMÁRIO 3 PORTAS</td> <td class="estado-Armário-3-Portas"></td> <td class="Valor-Armário-3-Portas"></td> <!-- 2* -->
+    <td class="Qtd-Cadeira-Estofada"></td> <td>CADEIRA ESTOFADA</td> <td class="estado-Cadeira-Estofada"></td> <td class="Valor-Cadeira-Estofada"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Banco-Piano"></td> <td>BANCO PIANO</td> <td class="estado-Banco-Piano"></td> <td class="Valor-Banco-Piano"></td> <!-- 1* -->
+    <td class="Qtd-Armário-4-Portas"></td> <td>ARMÁRIO 4 PORTAS</td> <td class="estado-Armário-4-Portas"></td> <td class="Valor-Armário-4-Portas"></td> <!-- 2* -->
+    <td class="Qtd-Calculadora-Manual"></td> <td>CALCUL. MANUAL</td> <td class="estado-Calculadora-Manual"></td> <td class="Valor-Calculadora-Manual"></td> <!-- 3* -->
+</tr>
+
+<tr>
+    <td class="Qtd-Banqueta"></td> <td>BANQUETA</td> <td class="estado-Banqueta"></td> <td class="Valor-Banqueta"></td> <!-- 1* -->
+    <td class="Qtd-Armário-Duplex"></td> <td>ARMÁRIO DUPLEX</td> <td class="estado-Armário-Duplex"></td> <td class="Valor-Armário-Duplex"></td> <!-- 2* -->
+    <td class="Qtd-Calculadora-Elétrica"></td> <td>CALCUL. ELÉTRICA</td> <td class="estado-Calculadora-Elétrica"></td> <td class="Valor-Calculadora-Elétrica"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Bar"></td> <td>BAR</td> <td class="estado-Bar"></td> <td class="Valor-Bar"></td> <!-- 1* -->
+    <td class="Qtd-Cama-Beliche"></td> <td>CAMA BELICHE</td> <td class="estado-Cama-Beliche"></td> <td class="Valor-Cama-Beliche"></td> <!-- 2* -->
+    <td class="Qtd-Calculadora-Eletrônica"></td> <td>CALCUL. ELETRÔNICA</td> <td class="estado-Calculadora-Eletrônica"></td> <td class="Valor-Calculadora-Eletrônica"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Biombo"></td> <td>BIOMBO</td> <td class="estado-Biombo"></td> <td class="Valor-Biombo"></td> <!-- 1* -->
+    <td class="Qtd-Cama-Berço"></td> <td>CAMA BERÇO</td> <td class="estado-Cama-Berço"></td> <td class="Valor-Cama-Berço"></td> <!-- 2* -->
+    <td class="Qtd-Cofre"></td> <td>COFRE</td> <td class="estado-Cofre"></td> <td class="Valor-Cofre"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Buffet-Pequeno"></td> <td>BUFFET PEQUENO</td> <td class="estado-Buffet-Pequeno"></td> <td class="Valor-Buffet-Pequeno"></td> <!-- 1* -->
+    <td class="Qtd-Cama-Casal"></td> <td>CAMA CASAL</td> <td class="estado-Cama-Casal"></td> <td class="Valor-Cama-Casal"></td> <!-- 2* -->
+    <td class="Qtd-Computador"></td> <td>COMPUTADOR</td> <td class="estado-Computador"></td> <td class="Valor-Computador"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Buffet-Grande"></td> <td>BUFFET GRANDE</td> <td class="estado-Buffet-Grande"></td> <td class="Valor-Buffet-Grande"></td> <!-- 1* -->
+    <td class="Qtd-Cama-Criança"></td> <td>CAMA CRIANÇA</td> <td class="estado-Cama-Criança"></td> <td class="Valor-Cama-Criança"></td> <!-- 2* -->
+    <td class="Qtd-Escrivaninha-Grande"></td> <td>ESCRIVANINHA GDE</td> <td class="estado-Escrivaninha-Grande"></td> <td class="Valor-Escrivaninha-Grande"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Buffet-com-Cristal"></td> <td>BUFFET C/ CRISTAL</td> <td class="estado-Buffet-com-Cristal"></td> <td class="Valor-Buffet-com-Cristal"></td> <!-- 1* -->
+    <td class="Qtd-Cama-Solteiro"></td> <td>CAMA SOLTEIRO</td> <td class="estado-Cama-Solteiro"></td> <td class="Valor-Cama-Solteiro"></td> <!-- 2* -->
+    <td class="Qtd-Escrivaninha-Pequena"></td> <td>ESCRIVANINHA PEQ</td> <td class="estado-Escrivaninha-Pequena"></td> <td class="Valor-Escrivaninha-Pequena"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-CD"></td> <td>CD</td> <td class="estado-CD"></td> <td class="Valor-CD"></td> <!-- 1* -->
+    <td class="Qtd-Cama-Dobrável"></td> <td>CAMA DOBRÁVEL</td> <td class="estado-Cama-Dobrável"></td> <td class="Valor-Cama-Dobrável"></td> <!-- 2* -->
+    <td class="Qtd-Escrivaninha-em-L"></td> <td>ESCRIVANINHA EM L</td> <td class="estado-Escrivaninha-em-L"></td> <td class="Valor-Escrivaninha-em-L"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Cadeira-Balanço"></td> <td>CADEIRA BALANÇO</td> <td class="estado-Cadeira-Balanço"></td> <td class="Valor-Cadeira-Balanço"></td> <!-- 1* -->
+    <td class="Qtd-Carrinho-Bebê"></td> <td>CARRINHO BEBÊ</td> <td class="estado-Carrinho-Bebê"></td> <td class="Valor-Carrinho-Bebê"></td> <!-- 2* -->
+    <td class="Qtd-Estante-Madeira"></td> <td>ESTANTE MADEIRA</td> <td class="estado-Estante-Madeira"></td> <td class="Valor-Estante-Madeira"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Cadeira-de-Braço"></td> <td>CADEIRA DE BRAÇO</td> <td class="estado-Cadeira-de-Braço"></td> <td class="Valor-Cadeira-de-Braço"></td> <!-- 1* -->
+    <td class="Qtd-Cesto-para-Roupas"></td> <td>CESTO P/ ROUPAS</td> <td class="estado-Cesto-para-Roupas"></td> <td class="Valor-Cesto-para-Roupas"></td> <!-- 2* -->
+    <td class="Qtd-Estante-Aço"></td> <td>ESTANTE AÇO</td> <td class="estado-Estante-Aço"></td> <td class="Valor-Estante-Aço"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Cadeira-de-Criança"></td> <td>CADEIRA DE CRIANÇA</td> <td class="estado-Cadeira-de-Criança"></td> <td class="Valor-Cadeira-de-Criança"></td> <!-- 1* -->
+    <td class="Qtd-Colchão-Berço"></td> <td>COLCHÃO BERÇO</td> <td class="estado-Colchão-Berço"></td> <td class="Valor-Colchão-Berço"></td> <!-- 2* -->
+    <td class="Qtd-Formulários-DVS"></td> <td>FORMULÁRIOS DVS</td> <td class="estado-Formulários-DVS"></td> <td class="Valor-Formulários-DVS"></td> <!-- 3* -->
+</tr>
+
+                   <tr>
+    <td class="Qtd-Cadeira-Simples"></td> <td>CADEIRA SIMPLES</td> <td class="estado-Cadeira-Simples"></td> <td class="Valor-Cadeira-Simples"></td> <!-- 1* -->
+    <td class="Qtd-Colchão-Casal"></td> <td>COLCHÃO CASAL</td> <td class="estado-Colchão-Casal"></td> <td class="Valor-Colchão-Casal"></td> <!-- 2* -->
+    <td class="Qtd-Impressora"></td> <td>IMPRESSORA</td> <td class="estado-Impressora"></td> <td class="Valor-Impressora"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Caixa-de-Som-Peq"></td> <td>CAIXA DE SOM PEQ</td> <td class="estado-Caixa-de-Som-Peq"></td> <td class="Valor-Caixa-de-Som-Peq"></td> <!-- 1* -->
+    <td class="Qtd-Colchão-Solteiro"></td> <td>COLCHÃO SOLTEIRO</td> <td class="estado-Colchão-Solteiro"></td> <td class="Valor-Colchão-Solteiro"></td> <!-- 2* -->
+    <td class="Qtd-Máquina-de-Escrever"></td> <td>MAQ. ESCREVER</td> <td class="estado-Máquina-de-Escrever"></td> <td class="Valor-Máquina-de-Escrever"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Caixa-de-Som-Gde"></td> <td>CAIXA DE SOM GDE</td> <td class="estado-Caixa-de-Som-Gde"></td> <td class="Valor-Caixa-de-Som-Gde"></td> <!-- 1* -->
+    <td class="Qtd-Cômoda-Penteadeira"> </td> <td>CÔMODA PENTEAD.</td> <td class="estado-Cômoda-Penteadeira"></td> <td class="Valor-Cômoda-Penteadeira"></td> <!-- 2* -->
+    <td class="Qtd-Máquina-Elétrica"></td> <td>MAQ. ELÉTRICA</td> <td class="estado-Máquina-Elétrica"></td> <td class="Valor-Máquina-Elétrica"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Carrinho-de-Cha"></td> <td>CARRINHO DE CHÁ</td> <td class="estado-Carrinho-de-Cha"></td> <td class="Valor-Carrinho-de-Cha"></td> <!-- 1* -->
+    <td class="Qtd-Mala-Pequena"></td> <td>MALA PEQUENA</td> <td class="estado-Mala-Pequena"></td> <td class="Valor-Mala-Pequena"></td> <!-- 2* -->
+    <td class="Qtd-Material-Escritorio"></td> <td>MAT ESCRITÓRIO</td> <td class="estado-Material-Escritorio"></td> <td class="Valor-Material-Escritorio"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Console"></td> <td>CONSOLE</td> <td class="estado-Console"></td> <td class="Valor-Console"></td> <!-- 1* -->
+    <td class="Qtd-Mala-Grande"></td> <td>MALA GRANDE</td> <td class="estado-Mala-Grande"></td> <td class="Valor-Mala-Grande"></td> <!-- 2* -->
+    <td class="Qtd-Mesa-de-Reunião"></td> <td>MESA DE REUNIÃO</td> <td class="estado-Mesa-de-Reunião"></td> <td class="Valor-Mesa-de-Reunião"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Cristaleira"></td> <td>CRISTALEIRA</td> <td class="estado-Cristaleira"></td> <td class="Valor-Cristaleira"></td> <!-- 1* -->
+    <td class="Qtd-Maquina-Costura"></td> <td>MÁQUINA COSTURA</td> <td class="estado-Maquina-Costura"></td> <td class="Valor-Maquina-Costura"></td> <!-- 2* -->
+    <td class="Qtd-Monitor"></td> <td>MONITOR</td> <td class="estado-Monitor"></td> <td class="Valor-Monitor"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Discos"></td> <td>DISCOS</td> <td class="estado-Discos"></td> <td class="Valor-Discos"></td> <!-- 1* -->
+    <td class="Qtd-Mesa-Cabeceira"></td> <td>MESA CABECEIRA</td> <td class="estado-Mesa-Cabeceira"></td> <td class="Valor-Mesa-Cabeceira"></td> <!-- 2* -->
+    <td></td> <td></td> <td></td> <td></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-DVD-Player"></td> <td>DVD PLAYER</td> <td class="estado-DVD-Player"></td> <td class="Valor-DVD-Player"></td> <!-- 1* -->
+    <td class="Qtd-Sofa-Cama"></td> <td>SOFÁ CAMA</td> <td class="estado-Sofa-Cama"></td> <td class="Valor-Sofa-Cama"></td> <!-- 2* -->
+    <th colspan="4">DIVERSOS</th> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-DVD"></td> <td>DVD</td> <td class="estado-DVD"></td> <td class="Valor-DVD"></td> <!-- 1* -->
+    <td></td> <td></td> <td></td> <td></td> <!-- 2* -->
+    <td class="Qtd-Artigos-Esportivos"></td> <td>ARTIGOS ESPORT.</td> <td class="estado-Artigos-Esportivos"></td> <td class="Valor-Artigos-Esportivos"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Espelhos"></td> <td>ESPELHOS</td> <td class="estado-Espelhos"></td> <td class="Valor-Espelhos"></td> <!-- 1* -->
+    <td></td> <td></td> <td></td> <td></td> <!-- 2* -->
+    <td class="Qtd-Aspirador-de-Pó"></td> <td>ASPIRADOR DE PÓ</td> <td class="estado-Aspirador-de-Pó"></td> <td class="Valor-Aspirador-de-Pó"></td> <!-- 3* -->
+</tr>
+
+                  <tr>
+    <td class="Qtd-Estante-Alta"></td> <td>ESTANTE ALTA</td> <td class="estado-Estante-Alta"></td> <td class="Valor-Estante-Alta"></td> <!-- 1* -->
+    <th colspan="4">COZINHA/ÁREA</th> <!-- 2* -->
+    <td class="Qtd-Bebidas-Lacradas"></td> <td>BEBIDAS LACRADAS</td> <td class="estado-Bebidas-Lacradas"></td> <td class="Valor-Bebidas-Lacradas"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Estante-Baixa"></td> <td>ESTANTE BAIXA</td> <td class="estado-Estante-Baixa"></td> <td class="Valor-Estante-Baixa"></td> <!-- 1* -->
+    <td class="Qtd-Aquecedor"></td> <td>AQUECEDOR</td> <td class="estado-Aquecedor"></td> <td class="Valor-Aquecedor"></td> <!-- 2* -->
+    <td class="Qtd-Bicicleta"></td> <td>BICICLETA</td> <td class="estado-Bicicleta"></td> <td class="Valor-Bicicleta"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Lustre-Luminaria"></td> <td>LUSTRE LUMINÁRIA</td> <td class="estado-Lustre-Luminaria"></td> <td class="Valor-Lustre-Luminaria"></td> <!-- 1* -->
+    <td class="Qtd-Armário-Alto"></td> <td>ARMÁRIO ALTO</td> <td class="estado-Armário-Alto"></td> <td class="Valor-Armário-Alto"></td> <!-- 2* -->
+    <td class="Qtd-Máquina-de-Lavar"></td> <td>MAQUINA LAVAR</td> <td class="estado-Máquina-de-Lavar"></td> <td class="Valor-Máquina-de-Lavar"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Mármore-Granito"></td> <td>MÁRMORE/GRANITO</td> <td class="estado-Mármore-Granito"></td> <td class="Valor-Mármore-Granito"></td> <!-- 1* -->
+    <td class="Qtd-Armário-Baixo"></td> <td>ARMÁRIO BAIXO</td> <td class="estado-Armário-Baixo"></td> <td class="Valor-Armário-Baixo"></td> <!-- 2* -->
+    <td class="Qtd-Cortinas"></td> <td>CORTINAS</td> <td class="estado-Cortinas"></td> <td class="Valor-Cortinas"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Mesa-de-Centro"></td> <td>MESA DE CENTRO</td> <td class="estado-Mesa-de-Centro"></td> <td class="Valor-Mesa-de-Centro"></td> <!-- 1* -->
+    <td class="Qtd-Armário-Parede"></td> <td>ARMÁRIO PAREDE</td> <td class="estado-Armário-Parede"></td> <td class="Valor-Armário-Parede"></td> <!-- 2* -->
+    <td class="Qtd-Cristais"></td> <td>CRISTAIS</td> <td class="estado-Cristais"></td> <td class="Valor-Cristais"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Mesa-Dobravel"></td> <td>MESA DOBRÁVEL</td> <td class="estado-Mesa-Dobravel"></td> <td class="Valor-Mesa-Dobravel"></td> <!-- 1* -->
+    <td class="Qtd-Balança"></td> <td>BALANÇA</td> <td class="estado-Balança"></td> <td class="Valor-Balança"></td> <!-- 2* -->
+    <td class="Qtd-Esculturas"></td> <td>ESCULTURAS</td> <td class="estado-Esculturas"></td> <td class="Valor-Esculturas"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Mesa-Elastica"></td> <td>MESA ELÁSTICA</td> <td class="estado-Mesa-Elastica"></td> <td class="Valor-Mesa-Elastica"></td> <!-- 1* -->
+    <td class="Qtd-Batedeira"></td> <td>BATEDEIRA</td> <td class="estado-Batedeira"></td> <td class="Valor-Batedeira"></td> <!-- 2* -->
+    <td class="Qtd-Ferramentas"></td> <td>FERRAMENTAS</td> <td class="estado-Ferramentas"></td> <td class="Valor-Ferramentas"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Mesa-Jantar"></td> <td>MESA JANTAR</td> <td class="estado-Mesa-Jantar"></td> <td class="Valor-Mesa-Jantar"></td> <!-- 1* -->
+    <td class="Qtd-Botijao-de-Gas"></td> <td>BOTIJÃO DE GÁS</td> <td class="estado-Botijao-de-Gas"></td> <td class="Valor-Botijao-de-Gas"></td> <!-- 2* -->
+    <td class="Qtd-Filmadora"></td> <td>FILMADORA</td> <td class="estado-Filmadora"></td> <td class="Valor-Filmadora"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Mesa-Lateral"></td> <td>MESA LATERAL</td> <td class="estado-Mesa-Lateral"></td> <td class="Valor-Mesa-Lateral"></td> <!-- 1* -->
+    <td class="Qtd-Enceradeira"></td> <td>ENCERADEIRA</td> <td class="estado-Enceradeira"></td> <td class="Valor-Enceradeira"></td> <!-- 2* -->
+    <td class="Qtd-Instrumentos-Musicais"></td> <td>INSTRUM. MUSICAIS</td> <td class="estado-Instrumentos-Musicais"></td> <td class="Valor-Instrumentos-Musicais"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Mesa-de-Telefone"></td> <td>MESA DE TELEFONE</td> <td class="estado-Mesa-de-Telefone"></td> <td class="Valor-Mesa-de-Telefone"></td> <!-- 1* -->
+    <td class="Qtd-Espremedor"></td> <td>ESPREMEDOR</td> <td class="estado-Espremedor"></td> <td class="Valor-Espremedor"></td> <!-- 2* -->
+    <td class="Qtd-Livros"></td> <td>LIVROS</td> <td class="estado-Livros"></td> <td class="Valor-Livros"></td> <!-- 3* -->
+</tr>
+
+                    <tr>
+    <td class="Qtd-Mesa-TV"></td> <td>MESA TV</td> <td class="estado-Mesa-TV"></td> <td class="Valor-Mesa-TV"></td> <!-- 1* -->
+    <td class="Qtd-Exaustor"></td> <td>EXAUSTOR</td> <td class="estado-Exaustor"></td> <td class="Valor-Exaustor"></td> <!-- 2* -->
+    <td class="Qtd-Louças"></td> <td>LOUÇAS</td> <td class="estado-Louças"></td> <td class="Valor-Louças"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Piano-Armario"></td> <td>PIANO ARMÁRIO</td> <td class="estado-Piano-Armario"></td> <td class="Valor-Piano-Armario"></td> <!-- 1* -->
+    <td class="Qtd-Forno"></td> <td>FORNO</td> <td class="estado-Forno"></td> <td class="Valor-Forno"></td> <!-- 2* -->
+    <td class="Qtd-Objeto-Uso-Pessoal"></td> <td>OBJETO USO PESSOAL</td> <td class="estado-Objeto-Uso-Pessoal"></td> <td class="Valor-Objeto-Uso-Pessoal"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Piano-Apartamento"></td> <td>PIANO APARTAMENTO</td> <td class="estado-Piano-Apartamento"></td> <td class="Valor-Piano-Apartamento"></td> <!-- 1* -->
+    <td class="Qtd-Filtro"></td> <td>FILTRO</td> <td class="estado-Filtro"></td> <td class="Valor-Filtro"></td> <!-- 2* -->
+    <td class="Qtd-Perfume-Maq"></td> <td>PERFUME/MAQ</td> <td class="estado-Perfume-Maq"></td> <td class="Valor-Perfume-Maq"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Piano-Cauda"></td> <td>PIANO CAUDA</td> <td class="estado-Piano-Cauda"></td> <td class="Valor-Piano-Cauda"></td> <!-- 1* -->
+    <td class="Qtd-Fogão"></td> <td>FOGÃO</td> <td class="estado-Fogão"></td> <td class="Valor-Fogão"></td> <!-- 2* -->
+    <td class="Qtd-Porcelana"></td> <td>PORCELANA</td> <td class="estado-Porcelana"></td> <td class="Valor-Porcelana"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Poltrona"></td> <td>POLTRONA</td> <td class="estado-Poltrona"></td> <td class="Valor-Poltrona"></td> <!-- 1* -->
+    <td class="Qtd-Freezer"></td> <td>FREEZER</td> <td class="estado-Freezer"></td> <td class="Valor-Freezer"></td> <!-- 2* -->
+    <td class="Qtd-Prataria"></td> <td>PRATARIA</td> <td class="estado-Prataria"></td> <td class="Valor-Prataria"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Rack"></td> <td>RACK</td> <td class="estado-Rack"></td> <td class="Valor-Rack"></td> <!-- 1* -->
+    <td class="Qtd-Geladeira"></td> <td>GELADEIRA</td> <td class="estado-Geladeira"></td> <td class="Valor-Geladeira"></td> <!-- 2* -->
+    <td class="Qtd-Projetor"></td> <td>PROJETOR</td> <td class="estado-Projetor"></td> <td class="Valor-Projetor"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Radio"></td> <td>RÁDIO</td> <td class="estado-Radio"></td> <td class="Valor-Radio"></td> <!-- 1* -->
+    <td class="Qtd-Lava-Louças"></td> <td>LAVA-LOUÇAS</td> <td class="estado-Lava-Louças"></td> <td class="Valor-Lava-Louças"></td> <!-- 2* -->
+    <td class="Qtd-Quadros-e-Telas"></td> <td>QUADROS E TELAS</td> <td class="estado-Quadros-e-Telas"></td> <td class="Valor-Quadros-e-Telas"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Relogio-de-Parede"></td> <td>RELÓGIO DE PAREDE</td> <td class="estado-Relogio-de-Parede"></td> <td class="Valor-Relogio-de-Parede"></td> <!-- 1* -->
+    <td class="Qtd-Lava-Roupas"></td> <td>LAVA-ROUPAS</td> <td class="estado-Lava-Roupas"></td> <td class="Valor-Lava-Roupas"></td> <!-- 2* -->
+    <td class="Qtd-Roupas-Pessoais"></td> <td>ROUPAS PESSOAIS</td> <td class="estado-Roupas-Pessoais"></td> <td class="Valor-Roupas-Pessoais"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Sofa-2-Almofadas"></td> <td>SOFÁ C/ 2 ALMOFADAS</td> <td class="estado-Sofa-2-Almofadas"></td> <td class="Valor-Sofa-2-Almofadas"></td> <!-- 1* -->
+    <td class="Qtd-Liquidificador"></td> <td>LIQUIDIFICADOR</td> <td class="estado-Liquidificador"></td> <td class="Valor-Liquidificador"></td> <!-- 2* -->
+    <td class="Qtd-Cama"></td> <td>CAMA</td> <td class="estado-Cama"></td> <td class="Valor-Cama"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Sofa-3-Almofadas"></td> <td>SOFÁ C/ 3 ALMOFADAS</td> <td class="estado-Sofa-3-Almofadas"></td> <td class="Valor-Sofa-3-Almofadas"></td> <!-- 1* -->
+    <td class="Qtd-Mesa"></td> <td>MESA</td> <td class="estado-Mesa"></td> <td class="Valor-Mesa"></td> <!-- 2* -->
+    <td class="Qtd-Mesa-3"></td> <td>MESA</td> <td class="estado-Mesa-3"></td> <td class="Valor-Mesa-3"></td> <!-- 3* -->
+</tr>
+
+                 <tr>
+    <td class="Qtd-Sofa-4-Almofadas"></td> <td>SOFÁ C/ 4 ALMOFADAS</td> <td class="estado-Sofa-4-Almofadas"></td> <td class="Valor-Sofa-4-Almofadas"></td> <!-- 1* -->
+    <td class="Qtd-Microondas"></td> <td>MICROONDAS</td> <td class="estado-Microondas"></td> <td class="Valor-Microondas"></td> <!-- 2* -->
+    <td class="Qtd-Banho"></td> <td>BANHO</td> <td class="estado-Banho"></td> <td class="Valor-Banho"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Tapete-Pequeno"></td> <td>TAPETE PEQUENO</td> <td class="estado-Tapete-Pequeno"></td> <td class="Valor-Tapete-Pequeno"></td> <!-- 1* -->
+    <td class="Qtd-Moedor"></td> <td>MOEDOR</td> <td class="estado-Moedor"></td> <td class="Valor-Moedor"></td> <!-- 2* -->
+    <td class="Qtd-Vazio-3-47"></td> <td></td> <td class="estado-Vazio-3-47"></td> <td class="Valor-Vazio-3-47"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Tapete-Grande"></td> <td>TAPETE GRANDE</td> <td class="estado-Tapete-Grande"></td> <td class="Valor-Tapete-Grande"></td> <!-- 1* -->
+    <td class="Qtd-Secadora"></td> <td>SECADORA</td> <td class="estado-Secadora"></td> <td class="Valor-Secadora"></td> <!-- 2* -->
+    <td class="Qtd-Vazio-3-48"></td> <td></td> <td class="estado-Vazio-3-48"></td> <td class="Valor-Vazio-3-48"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-TV-Preto-e-Branco"></td> <td>TV PRETO E BRANCO</td> <td class="estado-TV-Preto-e-Branco"></td> <td class="Valor-TV-Preto-e-Branco"></td> <!-- 1* -->
+    <td class="Qtd-Sucata"></td> <td>SUCATA</td> <td class="estado-Sucata"></td> <td class="Valor-Sucata"></td> <!-- 2* -->
+    <td class="Qtd-Vazio-3-49"></td> <td></td> <td class="estado-Vazio-3-49"></td> <td class="Valor-Vazio-3-49"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-TV-Cores"></td> <td>TV A CORES</td> <td class="estado-TV-Cores"></td> <td class="Valor-TV-Cores"></td> <!-- 1* -->
+    <td class="Qtd-Forno-2"></td> <td>FORNO</td> <td class="estado-Forno-2"></td> <td class="Valor-Forno-2"></td> <!-- 2* -->
+    <td class="Qtd-Vazio-3-50"></td> <td></td> <td class="estado-Vazio-3-50"></td> <td class="Valor-Vazio-3-50"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Video-Cassete"></td> <td>VÍDEO CASSETE</td> <td class="estado-Video-Cassete"></td> <td class="Valor-Video-Cassete"></td> <!-- 1* -->
+    <td class="Qtd-Vazio-2-51"></td> <td></td> <td class="estado-Vazio-2-51"></td> <td class="Valor-Vazio-2-51"></td> <!-- 2* -->
+    <th colspan="4">OUTROS (ESPECIFICAR ABAIXO)</th> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Vidro-Mesa"></td> <td>VIDRO MESA</td> <td class="estado-Vidro-Mesa"></td> <td class="Valor-Vidro-Mesa"></td> <!-- 1* -->
+    <td class="Qtd-Vazio-2-52"></td> <td></td> <td class="estado-Vazio-2-52"></td> <td class="Valor-Vazio-2-52"></td> <!-- 2* -->
+    <td class="Qtd-Vazio-3-52"></td> <td></td> <td class="estado-Vazio-3-52"></td> <td class="Valor-Vazio-3-52"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Vazio-1-53"></td> <td></td> <td class="estado-Vazio-1-53"></td> <td class="Valor-Vazio-1-53"></td> <!-- 1* -->
+    <td class="Qtd-Vazio-2-53"></td> <td></td> <td class="estado-Vazio-2-53"></td> <td class="Valor-Vazio-2-53"></td> <!-- 2* -->
+    <td class="Qtd-Vazio-3-53"></td> <td></td> <td class="estado-Vazio-3-53"></td> <td class="Valor-Vazio-3-53"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Vazio-1-54"></td> <td></td> <td class="estado-Vazio-1-54"></td> <td class="Valor-Vazio-1-54"></td> <!-- 1* -->
+    <th colspan="4">VEÍCULOS</th> <!-- 2* -->
+    <td class="Qtd-Vazio-3-54"></td> <td></td> <td class="estado-Vazio-3-54"></td> <td class="Valor-Vazio-3-54"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Vazio-1-55"></td> <td></td> <td class="estado-Vazio-1-55"></td> <td class="Valor-Vazio-1-55"></td> <!-- 1* -->
+    <td class="Qtd-Moto"></td> <td>MOTO</td> <td class="estado-Moto"></td> <td class="Valor-Moto"></td> <!-- 2* -->
+    <td class="Qtd-Vazio-3-55"></td> <td></td> <td class="estado-Vazio-3-55"></td> <td class="Valor-Vazio-3-55"></td> <!-- 3* -->
+</tr>
+<tr>
+    <td class="Qtd-Vazio-1-56"> </td> <td></td> <td class="estado-Vazio-1-56"></td> <td class="Valor-Vazio-1-56"></td> <!-- 1* -->
+    <td class="Qtd-Automovel"> </td> <td>AUTOMÓVEL</td> <td class="estado-Automovel"></td> <td class="Valor-Automovel"></td> <!-- 2* -->
+    <td class="Qtd-Vazio-3-56"> </td> <td></td> <td class="estado-Vazio-3-56"></td> <td class="Valor-Vazio-3-56"></td> <!-- 3* -->
+</tr>
+
+                    
+                    
+                </tbody>
+            </thead>
+            
+    
+        </table>
+    </div>
+    
+    
+    <div class="Valores">
+        <div class="cont">
+        <h3>ESTADO DA PEÇA</h3>
+        <ul>
+            <li>1- Desmontado pelo cliente</li>
+            <li>2- Embalado pelo cliente</li>
+            <li>3- Amassado</li>
+        </ul>
+       <ul>
+            <li>4- Normal</li>
+            <li>5- Arranhado</li>
+            <li>6- Solto</li>
+        </ul>
+        </div>
+        <div class="end-t">
+       
+        <h3> VALOR TOTAL DECLARADO:</h3>  <h3 style=" border-bottom: solid black 1px;">R$ ${item.valor_total_declarado ? item.valor_total_declarado.toFixed(2) : "Não disponível"}</h3> 
+    
+   </div>
+   
+    </div>
+    <label class="h2">Observação</label>
+  
+
+    <!-- Observações -->
+
+    <div class="section">
+        
+        <div class="footer-note">
+        <p>O TRANSPORTADOR DEVERÁ PREENCHER ESTE FORMULÁRIO ANTES DO INÍCIO DO EMBARQUE.  EM CASO DE EVENTUAL SINISTRO, ESTE INVENTÁRIO SERÁ SOLICITADO PELA SEGURADORA.</p>
+      
+    </div>
+
+    <div class="signatures">
+        <div>
+            <label>Local e Data:</label>
+            
+        </div>
+        <div>
+            <label>Assinatura do Transportador:</label>
+           
+        </div>
+        <div>
+            <label>Assinatura do Cliente:</label>
+          
+        </div>
+    </div>
+
+    
+    
+</div>
+</body>
+</html>
+
+    `; // ou outro título desejado
+
+    const itensAgrupados = {};
+
+    (item.itens || []).forEach(i => {
+      const desc = i.descricao;
+      if (!itensAgrupados[desc]) {
+        itensAgrupados[desc] = { ...i };
+      } else {
+        itensAgrupados[desc].quantidade += i.quantidade ?? 0;
+        itensAgrupados[desc].valor += i.valor ?? 0;
+
+        const estadoAtual = parseInt(itensAgrupados[desc].estado ?? '0', 10);
+        const estadoNovo = parseInt(i.estado ?? '0', 10);
+        itensAgrupados[desc].estado = Math.max(estadoAtual, estadoNovo).toString();
+      }
+    });
+
+    // Atualizar os valores na tabela HTML
+    Object.entries(itensAgrupados).forEach(([desc, dados]) => {
+      const celQtd = document.querySelector(`.Qtd-${CSS.escape(desc)}`);
+      const celEstado = document.querySelector(`.estado-${CSS.escape(desc)}`);
+      const celValor = document.querySelector(`.Valor-${CSS.escape(desc)}`);
+
+      if (celQtd) celQtd.textContent = dados.quantidade ?? '';
+      if (celEstado) celEstado.textContent = dados.estado ?? '';
+      if (celValor) celValor.textContent = (dados.valor ?? 0).toFixed(2).replace('.', ',');
+    });
+  }
+
+  // Espera DOM estar pronto
+  window.addEventListener("DOMContentLoaded", main);
+</script>
+
+
+
+
+    
+    
+    <script type="module" src="js/script.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+<!--   
+//Primeira Versão do código
+item.itens.forEach(i => {
+          const desc = i.descricao;
+
+          const celQtd = document.querySelector(`.Qtd-${CSS.escape(desc)}`);
+          const celEstado = document.querySelector(`.estado-${CSS.escape(desc)}`);
+          const celValor = document.querySelector(`.Valor-${CSS.escape(desc)}`);
+
+          if (celQtd) celQtd.textContent = i.quantidade ?? '';
+          if (celEstado) celEstado.textContent = i.estado ?? '';
+          if (celValor) celValor.textContent = i.valor?.toFixed(2).replace('.', ',') ?? '';
+        });
+
+-->
+</body>
+</html>

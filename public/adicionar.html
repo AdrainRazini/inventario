@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Configurações básicas -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adicionar Item</title>
+
+  <!-- Estilos principais -->
+  <link rel="stylesheet" href="css/test2.css">
+
+  <!-- Ícones e bibliotecas visuais externas -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+  <link rel="icon" sizes="192x192" href="https://static.wixstatic.com/media/c4bee6_f6158e93a0c04c8f9eeaba387e610940%7Emv2.png" type="image/png">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+  <!-- Scripts externos (GSAP para animações, FontAwesome Kit) -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+
+<body>
+  <!-- Título principal -->
+  <h1>Adicionar Novo Item</h1>
+
+  <!-- Formulário principal -->
+  <form id="form-adicionar">
+
+      <!-- Transportadora -->
+    <div class="grupo amarelo">
+      <label for="transportadora_nome">Nome Transportadora:</label>
+      <input type="text" id="transportadora_nome" name="transportadora_nome" value=" TRANSKOTEMPO LTDA" readonly required>
+
+      <label for="transportadora_cnpj">CNPJ:</label>
+      <input type="text" id="transportadora_cnpj" name="transportadora_cnpj" value="59521601000192" readonly required>
+    </div>
+
+    <!-- Cliente -->
+    <div class="grupo">
+      <h3>Dados do Cliente</h3>
+      <label for="cliente_nome">Nome:</label>
+      <input type="text" id="cliente_nome" name="cliente_nome" required>
+
+    <label for="cliente_telefone">Telefone:</label>
+<input type="tel" id="cliente_telefone" name="cliente_telefone" placeholder="(DD) 9XXXX-XXXX" maxlength="15" required>
+<p id="ddd-info" style="margin-top: 8px; font-weight: bold;"></p>
+
+
+
+
+
+   <label for="email">E-mail:</label>
+<input
+  type="email"
+  id="email"
+  name="email"
+  placeholder="seu.email@dominio.com"
+  required
+  maxlength="100"
+  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+  title="Digite um e-mail válido, como seu.email@dominio.com"
+/>
+
+    </div>
+
+    <!-- Endereço de Origem -->
+    <div class="grupo amarelo">
+      <h3>Endereço de Origem</h3>
+      <label for="endereco_origem">Endereço:</label>
+      <input type="text" id="endereco_origem" name="endereco_origem" required>
+
+      <label for="bairro_origem">Bairro:</label>
+      <input type="text" id="bairro_origem" name="bairro_origem" required>
+
+
+     
+<label for="cidade_origem">Cidade:</label>
+      <label for="uf_origem">UF:</label>
+
+     <div class="flex-row">
+  <select id="uf-origem" name="uf_origem" required></select>
+  <select id="cidade-origem" name="cidade_origem" required></select>
+</div>
+
+<!--
+ <input type="text" id="cidade_origem" name="cidade_origem" required>
+      <input type="text" id="uf_origem" name="uf_origem" required>
+-->
+     
+
+      <div class="radio-group">
+        <label><input type="radio" name="tipo_origem" value="Casa" checked> Casa</label>
+        <label><input type="radio" name="tipo_origem" value="Apartamento"> Apartamento</label>
+      </div>
+
+      <div class="flex-row">
+        <label for="andar_origem">Andar</label>
+        <input type="number" id="andar_origem" name="andar_origem" min="0" />
+
+        <!-- Origem -->
+      <p>Elevador na origem:</p>
+      </div>
+           <div class="radio-group">
+        <label><input type="radio" name="elevador_origem" value="sim"> Com elevador</label>
+        <label><input type="radio" name="elevador_origem" value="nao"> Sem elevador</label>
+     </div>
+    </div>
+
+    <!-- Endereço de Destino -->
+    <div class="grupo amarelo">
+      <h3>Endereço de Destino</h3>
+      <label for="endereco_destino">Endereço:</label>
+      <input type="text" id="endereco_destino" name="endereco_destino" required>
+
+      <label for="bairro_destino">Bairro:</label>
+      <input type="text" id="bairro_destino" name="bairro_destino" required>
+
+      <label for="cidade_destino">Cidade:</label>
+    
+
+      <label for="uf_destino">UF:</label>
+
+      <div class="flex-row" >
+<select id="uf-destino" name="uf_destino" required></select>
+  <select id="cidade-destino" name="cidade_destino" required></select>
+</div>
+<!--
+<input type="text" id="cidade_destino" name="cidade_destino" required>
+<input type="text" id="uf_destino" name="uf_destino" required>
+-->
+      
+
+      <div class="radio-group">
+        <label><input type="radio" name="tipo_destino" value="Casa" checked> Casa</label>
+        <label><input type="radio" name="tipo_destino" value="Apartamento"> Apartamento</label>
+      </div>
+
+      <div class="flex-row">
+        <label for="andar_destino">Andar</label>
+        <input type="number" id="andar_destino" name="andar_destino" min="0" />
+       <!-- Destino -->
+       <p>Elevador no destino:</p>
+ </div>
+ <div class="radio-group">
+    <label><input type="radio" name="elevador_destino" value="sim"> Com elevador</label>
+     <label><input type="radio" name="elevador_destino" value="nao"> Sem elevador</label>
+</div>
+    </div>
+  
+    <!-- Lista de seleção automática dos itens sugeridos -->
+<div id="controle_mudancaForm"  style="grid-column: 1 / -1;" >
+<div class="radio-group">
+            <label><input type="radio" name="Visor_fieldset" value="1" checked> ESTAR E JANTAR </label>
+            <label><input type="radio" name="Visor_fieldset" value="2"> DORMITÓRIO </label>
+            <label><input type="radio" name="Visor_fieldset" value="3"> ESCRITÓRIO </label>
+            <label><input type="radio" name="Visor_fieldset" value="4"> COZINHA / ÁREA </label>
+            <label><input type="radio" name="Visor_fieldset" value="5"> DIVERSOS </label>
+            <label><input type="radio" name="Visor_fieldset" value="6"> VEÍCULOS </label>
+        </div>
+</div>
+
+    <div id="mudancaForm" style="grid-column: 1 / -1;" >
+      <div id="itensDinamicos"></div>
+
+      <!-- Botão para mostrar tabela com campos de quantidade e valor dos itens -->
+      <button type="button" id="btnMostrar">Mostrar Itens Selecionados</button>
+
+      <!-- Tabela dinâmica com os itens selecionados -->
+      <section class="selected-items-section" aria-live="polite" aria-label="Seção para declarar quantidade e valores dos itens selecionados">
+        <h2>Itens Selecionados para Declaração</h2>
+        <div id="itensSelecionadosContainer">
+          <p class="no-items">Nenhum item selecionado.</p>
+        </div>
+        <div class="total" id="totalContainer" style="display:none;">
+          Total: R$ <span id="totalValue">0.00</span>
+        </div>
+        <button type="button" id="btnSalvar" style="display:none;">
+          <span class="material-icons" aria-hidden="true">save</span> Salvar Declarações
+        </button>
+      </section>
+    </div>
+
+
+      <!-- Seção para adicionar itens manualmente -->
+    <div class="grupo" style="grid-column: 1 / -1;">
+      <h3>Itens de Mobiliário</h3>
+      <div id="itens-container"></div>
+   
+    </div>
+
+    <!-- Valor total e campo de observação -->
+    <div class="grupo" style="grid-column: 1 / -1;">
+      <label for="valor_total_declarado">Valor Total Declarado (R$):</label>
+      <input type="text" id="valor_total_declarado" name="valor_total_declarado" required readonly>
+
+      <label for="observacao">Observação:</label>
+      <textarea id="observacao" name="observacao"></textarea>
+    </div>
+
+    <!-- Botões finais do formulário -->
+    <button type="submit" class="btn-concluir"><span class="material-icons" aria-hidden="true">check_circle</span> Concluir</button>
+    <!--- Botão para Voltar ao Index ou para o que foi salvo no historico -->
+   <button type="button" onclick="history.back()" class="button_red"><span class="material-icons">arrow_back</span> Voltar</button>
+
+  </form>
+
+  <!-- Scripts específicos do projeto -->
+  <script type="module" src="js/script.js"></script> <!-- Scripts de funcionalidades gerais -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script> <!-- Biblioteca de animações ao scroll -->
+  <script type="module" src="js/adicionar.js"></script> <!-- Script de adição de móveis e interação -->
+  <script type="module" src="js/cidade-estados-brasil.js"></script> <!-- Popula estados e cidades via JSON local ou API -->
+</body>
+</html>
