@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inventário</title>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/style.css" />
+   <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+  <link rel="icon" sizes="192x192" href="https://static.wixstatic.com/media/c4bee6_f6158e93a0c04c8f9eeaba387e610940%7Emv2.png/v1/fill/w_192%2Ch_192%2Clg_1%2Cusm_0.66_1.00_0.01/c4bee6_f6158e93a0c04c8f9eeaba387e610940%7Emv2.png" type="image/png">
+  <!-- Scripts -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <!-- Estilo do botão lateral do WhatsApp -->
+  <style>
+    .side-tab {
+      position: fixed;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      background-color: #25d366;
+      color: white;
+      border-radius: 8px 0 0 8px;
+      cursor: pointer;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+      transition: width 0.3s ease, height 0.3s ease, padding 0.3s ease;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+    }
+
+    .side-tab.open {
+      width: 300px;
+      height: auto;
+      padding: 10px;
+    }
+
+    .side-tab .icon {
+      font-size: 28px;
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      flex-shrink: 0;
+    }
+
+    .side-tab .content {
+      margin-left: 10px;
+      opacity: 0;
+      white-space: nowrap;
+      transition: opacity 0.3s ease 0.3s;
+      pointer-events: none;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .side-tab.open .content {
+      opacity: 1;
+      pointer-events: auto;
+      user-select: auto;
+      white-space: normal;
+    }
+
+    .side-tab a {
+      color: white;
+      text-decoration: underline;
+    }
+
+    .side-tab a:hover,
+    .side-tab a:focus {
+      color: #075e54;
+      text-decoration: none;
+    }
+
+
+.search-bar {
+  margin: 20px 0;
+  text-align: center;
+}
+
+#search-input {
+  width: 90%;
+  max-width: 500px;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid var(--color-primary-dark);
+  border-radius: 8px;
+  outline: none;
+}
+
+
+#user {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+#user:hover {
+  transform: scale(1.05);
+}
+
+#login-button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #25d366;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#login-button:hover {
+  background-color: #1da851;
+}
+/* USER BOX */
+.user-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+  </style>
+</head>
+
+<body>
+  <!-- Header / Navegação -->
+<!-- Header / Navegação -->
+<header>
+  <nav>
+    <!-- Bloco do usuário -->
+    <div class="user-box">
+      <img id="user" src="image/anonimo.png" alt="Foto do usuário" />
+      <span id="username-display"></span>
+      <button id="login-button"></button>
+    </div>
+
+    <!-- Logo -->
+    <div class="logo">TRANSCOTEMPO</div>
+
+    <!-- Ícone menu mobile -->
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- Navegação -->
+    <ul class="nav-links">
+      <li><a href="#home"><i class="fas fa-home"></i> Início</a></li>
+      <li><a href="#contato"><i class="fas fa-envelope"></i> Contato</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+
+
+  <!-- Conteúdo Principal -->
+  <main>
+    <h1>Bem-vindo ao Inventário</h1>
+
+    <div class="navigation">
+<button class="button" onclick="adicionar_url()"><i class="fa fa-pencil fa-fw"></i> Adicionar</button>
+<button class="button" onclick="gerenciar_url()" style="display: none;"><i class="fa fa-ban fa-fw"></i> Gerenciar</button>
+<button class="button" onclick="users_url()" style="display: none;">Usuários</button>
+
+
+   <script type="module">
+  import { auth } from "./js/firebase.js";
+  import { signOut } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js";
+
+  const userImg = document.getElementById('user');
+  const loginBtn = document.getElementById('login-button');
+
+  const userPhoto = localStorage.getItem('userphoto');
+  const userName = localStorage.getItem('username');
+  const fotoPadrao = 'image/anonimo.png';
+
+  userImg.src = userPhoto && userPhoto !== '' ? userPhoto : fotoPadrao;
+
+  if (userName) {
+    document.getElementById('username-display').textContent = userName;
+    loginBtn.textContent = 'Sair';
+    loginBtn.onclick = logout; // corrige aqui
+  } else {
+    loginBtn.textContent = 'Entrar';
+    loginBtn.onclick = () => window.location.href = 'login.html';
+  }
+
+  userImg.addEventListener('click', () => {
+    const destino = userName ? 'user-dashboard.html' : 'login.html';
+    window.location.href = destino;
+  });
+
+  async function logout() {
+    try {
+      await signOut(auth); // logout real do Firebase
+      localStorage.removeItem('username');
+      localStorage.removeItem('useremail');
+      localStorage.removeItem('userphoto');
+      window.location.reload(); // ou redirecionar para login
+    } catch (error) {
+      console.error("Erro ao fazer logout:", error);
+    }
+  }
+
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
+const db = getFirestore();
+
+async function verificarPermissaoAdmin() {
+  const email = localStorage.getItem('useremail');
+  if (!email) return;
+
+  try {
+    const userRef = doc(db, "users", email);
+    const userSnap = await getDoc(userRef);
+
+    if (userSnap.exists() && userSnap.data().role === "admin") {
+      document.querySelector('[onclick="gerenciar_url()"]').style.display = "inline-block";
+      document.querySelector('[onclick="users_url()"]').style.display = "inline-block";
+    } else {
+      document.querySelector('[onclick="gerenciar_url()"]').style.display = "none";
+      document.querySelector('[onclick="users_url()"]').style.display = "none";
+    }
+  } catch (err) {
+    console.error("Erro ao verificar papel do usuário:", err);
+  }
+}
+
+verificarPermissaoAdmin();
+      </script>
+
+<script>
+      function adicionar_url() {
+      window.location.href = 'adicionar.html';
+    }
+      function gerenciar_url() {
+      window.location.href = 'admin.html';
+    }
+       function users_url() {
+      window.location.href = 'users.html';
+    }
+</script>
+
+    </div>
+
+    <div class="search-bar">
+  <input
+    type="text"
+    id="search-input"
+    placeholder="Pesquisar por ID, Cliente, Transportadora, Origem ou Destino..."
+  />
+</div>
+
+   <h2 style="text-align: center;" >Itens do Inventário</h2>
+    <div class="loading" id="loading">Carregando...</div>
+    <div id="inventario-cards" class="cards-container" style="display:none;">
+      <!-- Cards serão inseridos dinamicamente -->
+    </div>
+  </main>
+
+
+<!-- Botão lateral para suporte via WhatsApp -->
+  <!-- Botão lateral para suporte via WhatsApp -->
+  <div
+    class="side-tab"
+    id="whatsapp-tab"
+    title="Suporte WhatsApp"
+    role="complementary"
+    aria-label="Suporte via WhatsApp"
+  >
+    <div class="icon" id="whatsapp-icon" aria-hidden="true">
+  <i id="icon-inner" class="fab fa-whatsapp"></i>
+</div>
+
+    <div class="content" tabindex="0">
+      <strong>Suporte</strong>
+      <br />
+      <a
+        href="https://api.whatsapp.com/send?phone=554199671804&text=Suporte!"
+        aria-label="Enviar mensagem para suporte WhatsApp"
+        target="_blank"
+        rel="noopener noreferrer"
+        >WhatsApp: (41) 9967-1804</a
+      >
+      <br />
+      Telefone: 4003-4915
+      <br />
+      Email: <a href="mailto:index@gmail.com">index@gmail.com</a>
+    </div>
+  </div>
+
+
+
+
+
+<script>
+  const tab = document.getElementById("whatsapp-tab");
+  const icon = document.getElementById("whatsapp-icon");
+  const iconInner = document.getElementById("icon-inner");
+
+  icon.addEventListener("click", (e) => {
+    e.stopPropagation();
+    tab.classList.toggle("open");
+
+    // Troca o ícone entre WhatsApp e "X"
+    if (tab.classList.contains("open")) {
+      iconInner.className = "fas fa-times";
+    } else {
+      iconInner.className = "fab fa-whatsapp";
+    }
+  });
+</script>
+
+
+  <!-- Rodapé -->
+
+  <footer>
+    @TRANSCOTEMPO
+  </footer>
+<!-- Meu contato -->
+  <!--
+ 
+  <footer id="contato">
+    <div class="social-links">
+      <a href="https://site-central-silk.vercel.app/" aria-label="Outro Projeto Adrian Razini">
+        <i class="fas fa-compass"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/adrian-razini-rangel-07393b2b8/" aria-label="LinkedIn Adrian Razini Rangel">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="https://github.com/AdrainRazini" aria-label="GitHub Adrian Razini">
+        <i class="fab fa-github"></i>
+      </a>
+      <a href="https://www.instagram.com/adrian75556435/" aria-label="Instagram Adrian Razini">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://api.whatsapp.com/send?phone=554196638056&text=Olá!" aria-label="WhatsApp Adrian Razini">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </div>
+  </footer>
+ -->
+
+
+
+  <!-- Scripts -->
+  <script type="module" src="js/script.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+   <script type="module" src="js/firebase.js"></script>
+  <script type="module" src="js/main.js"></script>
+  <script>AOS.init()</script>
+<script type="module">
+  import { db } from "./js/firebase.js";
+  import { collection, getDocs } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
+
+  AOS.init();
+
+  let inventarioOriginal = [];
+
+  async function fetchInventario() {
+    try {
+      const querySnapshot = await getDocs(collection(db, "produtos"));
+      const data = [];
+      querySnapshot.forEach(doc => {
+        const item = doc.data();
+        item.id = doc.id;
+        data.push(item);
+      });
+      return data;
+    } catch (error) {
+      console.error("Erro ao buscar dados:", error);
+      document.getElementById('loading').innerText = 'Erro ao carregar inventário.';
+      return [];
+    }
+  }
+
+  function populateCards(data) {
+    const container = document.getElementById('inventario-cards');
+    const loading = document.getElementById('loading');
+    loading.style.display = 'none';
+    container.style.display = 'grid';
+
+    inventarioOriginal = data;
+    renderCards(data);
+  }
+
+  function renderCards(data) {
+    const container = document.getElementById('inventario-cards');
+    container.innerHTML = '';
+
+    if (!data || data.length === 0) {
+      container.innerHTML = '<p style="grid-column: 1/-1; text-align:center;">Nenhum item encontrado.</p>';
+      return;
+    }
+
+    data.forEach(item => {
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.innerHTML = `
+        <h3>ID: ${item.id}</h3>
+        <p><strong>Transportadora:</strong> ${item.transportadora?.nome || "-"}</p>
+        <p><strong>Cliente:</strong> ${item.cliente?.nome || "-"}</p>
+        <p><strong>Endereço Origem:</strong><br>
+          ${item.cliente?.endereco_origem?.endereco || ""}, ${item.cliente?.endereco_origem?.bairro || ""}<br>
+          ${item.cliente?.endereco_origem?.cidade || ""} - ${item.cliente?.endereco_origem?.uf || ""}
+        </p>
+        <p><strong>Endereço Destino:</strong><br>
+          ${item.cliente?.endereco_destino?.endereco || ""}, ${item.cliente?.endereco_destino?.bairro || ""}<br>
+          ${item.cliente?.endereco_destino?.cidade || ""} - ${item.cliente?.endereco_destino?.uf || ""}
+        </p>
+        <p><strong>Valor Total:</strong> R$ ${item.valor_total_declarado?.toFixed(2) || "0,00"}</p>
+        <p><strong>Data:</strong> ${item.data_local?.split("T")[0] || "-"}</p>
+        <button onclick="verDocumento('${item.id}')">Ver Documento</button>
+        <button onclick="window.open('https://www.google.com/maps/dir/${item.cliente?.endereco_origem?.uf}/${item.cliente?.endereco_destino?.uf}', '_blank')">
+          <i class="fa fa-map"></i> Ver Rotas
+        </button>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  function verDocumento(itemId) {
+    window.location.href = `verdocumento_separado.html?itemId=${itemId}`;
+  }
+
+  window.verDocumento = verDocumento;
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    const data = await fetchInventario();
+    if (data) populateCards(data);
+
+    const searchInput = document.getElementById('search-input');
+    searchInput?.addEventListener('input', () => {
+      const termo = searchInput.value.toLowerCase();
+      const filtrados = inventarioOriginal.filter(item =>
+        item.id?.includes(termo) ||
+        item.cliente?.nome?.toLowerCase().includes(termo) ||
+        item.transportadora?.nome?.toLowerCase().includes(termo)
+      );
+      renderCards(filtrados);
+    });
+  });
+</script>
+
+</body>
+</html>
