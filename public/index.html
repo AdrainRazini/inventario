@@ -160,7 +160,18 @@
     </ul>
   </nav>
 </header>
-<script type="module">
+
+  <!-- Conteúdo Principal -->
+  <main>
+    <h1>Bem-vindo ao Inventário</h1>
+
+    <div class="navigation">
+<button class="button" onclick="adicionar_url()"><i class="fa fa-pencil fa-fw"></i> Adicionar</button>
+<button class="button" onclick="gerenciar_url()" style="display: none;"><i class="fa fa-ban fa-fw"></i> Gerenciar</button>
+<button class="button" onclick="users_url()" style="display: none;">Usuários</button>
+
+
+   <script type="module">
   import { auth } from "./js/firebase.js";
   import { signOut } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js";
 
@@ -198,28 +209,45 @@
       console.error("Erro ao fazer logout:", error);
     }
   }
-</script>
 
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
+const db = getFirestore();
 
-  <!-- Conteúdo Principal -->
-  <main>
-    <h1>Bem-vindo ao Inventário</h1>
+async function verificarPermissaoAdmin() {
+  const email = localStorage.getItem('useremail');
+  if (!email) return;
 
-    <div class="navigation">
-      <button class="button" onclick="adicionar_url()" ><i class="fa fa-pencil fa-fw"></i>Adicionar</button>
-      <button class="button" onclick="gerenciar_url()" ><i class="fa fa-ban fa-fw"></i> Gerenciar</button>
-    <!--  <button class="button" onclick="test_url()" >Test</button> --> 
-     <script>
+  try {
+    const userRef = doc(db, "users", email);
+    const userSnap = await getDoc(userRef);
+
+    if (userSnap.exists() && userSnap.data().role === "admin") {
+      document.querySelector('[onclick="gerenciar_url()"]').style.display = "inline-block";
+      document.querySelector('[onclick="users_url()"]').style.display = "inline-block";
+    } else {
+      document.querySelector('[onclick="gerenciar_url()"]').style.display = "none";
+      document.querySelector('[onclick="users_url()"]').style.display = "none";
+    }
+  } catch (err) {
+    console.error("Erro ao verificar papel do usuário:", err);
+  }
+}
+
+verificarPermissaoAdmin();
+      </script>
+
+<script>
       function adicionar_url() {
       window.location.href = 'adicionar.html';
     }
       function gerenciar_url() {
       window.location.href = 'admin.html';
     }
-       function test_url() {
-      window.location.href = 'test.html';
+       function users_url() {
+      window.location.href = 'users.html';
     }
-      </script>
+</script>
+
     </div>
 
     <div class="search-bar">
@@ -236,6 +264,8 @@
       <!-- Cards serão inseridos dinamicamente -->
     </div>
   </main>
+
+
 <!-- Botão lateral para suporte via WhatsApp -->
   <!-- Botão lateral para suporte via WhatsApp -->
   <div
