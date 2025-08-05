@@ -424,9 +424,14 @@ verificarPermissaoAdmin();
         <p><strong>Valor Total:</strong> R$ ${item.valor_total_declarado?.toFixed(2) || "0,00"}</p>
         <p><strong>Data:</strong> ${item.data_local?.split("T")[0] || "-"}</p>
         <button onclick="verDocumento('${item.id}')">Ver Documento</button>
-        <button onclick="window.open('https://www.google.com/maps/dir/${item.cliente?.endereco_origem?.uf}/${item.cliente?.endereco_destino?.uf}', '_blank')">
-          <i class="fa fa-map"></i> Ver Rotas
-        </button>
+        <button onclick="
+  const origem = encodeURIComponent('  ${item.cliente?.endereco_origem?.cidade || ""}, ${item.cliente?.endereco_origem?.uf || ""}');
+  const destino = encodeURIComponent(' ${item.cliente?.endereco_destino?.cidade || ""}, ${item.cliente?.endereco_destino?.uf || ""}');
+  window.open('https://www.google.com/maps/dir/' + origem + '/' + destino, '_blank');
+">
+  <i class='fa fa-map'></i> Ver Rotas
+</button>
+
       `;
       container.appendChild(card);
     });
