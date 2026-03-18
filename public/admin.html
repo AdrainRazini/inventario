@@ -202,7 +202,7 @@ let currentUserRole = null;
 
 onAuthStateChanged(auth, async (user) => {
   if (user) {
-    const userDocRef = doc(db, "users", user.email);
+    const userDocRef = doc(db, "users", user.uid);
     const userSnap = await getDoc(userDocRef);
     currentUserRole = userSnap.exists() ? userSnap.data().role : null;
     carregarItens();
