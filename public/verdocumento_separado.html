@@ -635,20 +635,6 @@ if (itemId) {
     <script>
         AOS.init();
     </script>
-<!--   
-//Primeira Versão do código
-item.itens.forEach(i => {
-          const desc = i.descricao;
 
-          const celQtd = document.querySelector(`.Qtd-${CSS.escape(desc)}`);
-          const celEstado = document.querySelector(`.estado-${CSS.escape(desc)}`);
-          const celValor = document.querySelector(`.Valor-${CSS.escape(desc)}`);
-
-          if (celQtd) celQtd.textContent = i.quantidade ?? '';
-          if (celEstado) celEstado.textContent = i.estado ?? '';
-          if (celValor) celValor.textContent = i.valor?.toFixed(2).replace('.', ',') ?? '';
-        });
-
--->
 </body>
 </html>
