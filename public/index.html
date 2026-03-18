@@ -219,10 +219,11 @@ const db = getFirestore();
 
 async function verificarPermissaoAdmin() {
   const email = localStorage.getItem('useremail');
+  const useruid = localStorage.getItem('useruid');
   if (!email) return;
 
   try {
-    const userRef = doc(db, "users", email);
+    const userRef = doc(db, "users", useruid);
     const userSnap = await getDoc(userRef);
 
     if (userSnap.exists() && userSnap.data().role === "admin") {
