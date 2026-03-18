@@ -1,13 +1,13 @@
 {
   "name": "inventario_3",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Adrian Razini Rangel",
   "license": "ISC",
   "description": "",
   "dependencies": {
@@ -17,5 +17,11 @@
     "firebase": "^11.10.0",
     "firebase-admin": "^13.4.0",
     "puppeteer": "^24.10.0"
-  }
+  },
+  
+  "metadata": {
+  "author": "Adrian Razini",
+  "organization": "ADN Nexus",
+  "year": 2026
+}
 }
