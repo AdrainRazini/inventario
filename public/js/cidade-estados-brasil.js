@@ -1,5 +1,5 @@
 ﻿
-  AOS.init();
+  
  var array_estados = [
 	["AC", "Acre"],
 	["AL", "Alagoas"],
