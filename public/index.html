@@ -175,71 +175,100 @@
 <button class="button" onclick="users_url()" style="display: none;">Usuários</button>
 
 
-   <script type="module">
-  import { auth } from "./js/Auth.js";
-  import { signOut } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js";
-
-  const userImg = document.getElementById('user');
-  const loginBtn = document.getElementById('login-button');
-
-  const userPhoto = localStorage.getItem('userphoto');
-  const userName = localStorage.getItem('username');
-  const fotoPadrao = 'image/anonimo.png';
-
-  userImg.src = userPhoto && userPhoto !== '' ? userPhoto : fotoPadrao;
-
-  if (userName) {
-    document.getElementById('username-display').textContent = userName;
-    loginBtn.textContent = 'Sair';
-    loginBtn.onclick = logout; // corrige aqui
-  } else {
-    loginBtn.textContent = 'Entrar';
-    loginBtn.onclick = () => window.location.href = 'login.html';
-  }
-
-  userImg.addEventListener('click', () => {
-    const destino = userName ? 'user-dashboard.html' : 'login.html';
-    window.location.href = destino;
-  });
-
-  async function logout() {
-    try {
-      await signOut(auth); // logout real do Firebase
-      localStorage.removeItem('username');
-      localStorage.removeItem('useremail');
-      localStorage.removeItem('userphoto');
-      window.location.reload(); // ou redirecionar para login
-    } catch (error) {
-      console.error("Erro ao fazer logout:", error);
-    }
-  }
-
+<script type="module">
+import { auth } from "./js/Auth.js";
+import { signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
+
 const db = getFirestore();
 
-async function verificarPermissaoAdmin() {
-  const email = localStorage.getItem('useremail');
-  const useruid = localStorage.getItem('useruid');
-  if (!email) return;
+const userImg = document.getElementById('user');
+const loginBtn = document.getElementById('login-button');
+const usernameDisplay = document.getElementById('username-display');
+
+const fotoPadrao = 'image/anonimo.png';
+
+// Estado inicial (evita bug visual)
+userImg.src = fotoPadrao;
+loginBtn.textContent = 'Entrar';
+loginBtn.onclick = () => window.location.href = 'login.html';
+
+// Observa login REAL (Firebase)
+onAuthStateChanged(auth, async (user) => {
+
+  if (!user) {
+    // Não logado
+    userImg.src = fotoPadrao;
+    usernameDisplay.textContent = "Visitante";
+
+    loginBtn.textContent = 'Entrar';
+    loginBtn.onclick = () => window.location.href = 'login.html';
+
+    esconderAdmin();
+    return;
+  }
+
+  // Logado
+  const userPhoto = user.photoURL || localStorage.getItem('userphoto') || fotoPadrao;
+  const userName = user.displayName || localStorage.getItem('username') || "Usuário";
+
+  userImg.src = userPhoto;
+  usernameDisplay.textContent = userName;
+
+  loginBtn.textContent = 'Sair';
+  loginBtn.onclick = logout;
+
+  // Verifica admin com UID correto
+  await verificarPermissaoAdmin(user.uid);
+});
+
+// Logout
+async function logout() {
+  try {
+    await signOut(auth);
+
+    localStorage.removeItem('username');
+    localStorage.removeItem('useremail');
+    localStorage.removeItem('userphoto');
+    localStorage.removeItem('useruid');
+
+    window.location.reload();
+  } catch (error) {
+    console.error("Erro ao fazer logout:", error);
+  }
+}
+
+// Permissão admin
+async function verificarPermissaoAdmin(uid) {
+  if (!uid) return;
 
   try {
-    const userRef = doc(db, "users", useruid);
+    const userRef = doc(db, "users", uid);
     const userSnap = await getDoc(userRef);
 
-    if (userSnap.exists() && userSnap.data().role === "admin") {
-      document.querySelector('[onclick="gerenciar_url()"]').style.display = "inline-block";
-      document.querySelector('[onclick="users_url()"]').style.display = "inline-block";
-    } else {
-      document.querySelector('[onclick="gerenciar_url()"]').style.display = "none";
-      document.querySelector('[onclick="users_url()"]').style.display = "none";
-    }
+    const isAdmin = userSnap.exists() && userSnap.data().role === "admin";
+
+    document.querySelector('[onclick="gerenciar_url()"]').style.display = isAdmin ? "inline-block" : "none";
+    document.querySelector('[onclick="users_url()"]').style.display = isAdmin ? "inline-block" : "none";
+
   } catch (err) {
     console.error("Erro ao verificar papel do usuário:", err);
   }
 }
 
-verificarPermissaoAdmin();
-      </script>
+// Esconde admin se não logado
+function esconderAdmin() {
+  document.querySelector('[onclick="gerenciar_url()"]').style.display = "none";
+  document.querySelector('[onclick="users_url()"]').style.display = "none";
+}
+
+// Clique na imagem
+userImg.addEventListener('click', () => {
+  const user = auth.currentUser;
+  const destino = user ? 'user-dashboard.html' : 'login.html';
+  window.location.href = destino;
+});
+</script>
 
 <script>
       function adicionar_url() {
