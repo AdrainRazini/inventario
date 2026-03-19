@@ -176,11 +176,7 @@ function adicionarItem() {
 btnAdicionar.onclick = adicionarItem;
 
 
-
-// js/firebase.js -- main.js
-
-
-import { auth, db } from "./firebase.js";
+import { auth, db } from "./Auth.js";
 import {
   doc,
   getDoc,
