@@ -547,8 +547,10 @@ function sincronizarEdicoes() {
 
     // Atualiza checkbox
     checkboxes.forEach(cb => {
-      cb.checked = (cb.value === descricaoAtual);
-    });
+     if (cb.value === descricaoAtual) {
+        cb.checked = true;
+      }
+      });
 
     // Remove linha anterior se mudou
     if (descricaoAtual !== descricaoAnterior) {
