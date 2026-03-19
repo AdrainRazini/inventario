@@ -525,8 +525,8 @@ document.getElementById('form-adicionar').onsubmit = async function (event) {
   };
 
   try {
-    //const user = auth.currentUser;
-    //if (!user) throw new Error("Usuário não autenticado.");
+    const user = auth.currentUser;
+    if (!user) throw new Error("Usuário não autenticado.");
 
     // Você pode até buscar o doc do usuário para obter dados (ex: nome)
     // mas para criar não precisa verificar role
