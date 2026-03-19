@@ -535,11 +535,14 @@ document.getElementById('form-adicionar').onsubmit = async function (event) {
     // if (!userDocSnap.exists()) throw new Error("Documento do usuário não encontrado.");
 
     const produtosColRef = collection(db, "produtos");
+
     await addDoc(produtosColRef, {
-      ...data,
-      criadoPor: user.email,
-      criadoEm: serverTimestamp(),
-    });
+    ...data,
+    criadoPor: user ? user.email : "anonimo",
+    uid: user ? user.uid : null,
+    publico: user ? false : true,
+    criadoEm: serverTimestamp(),
+   });
 
     loadingMessage.remove();
     alert("Item adicionado com sucesso.");
