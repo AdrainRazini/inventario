@@ -114,18 +114,18 @@ var array_cities = [
     }
   }
 
-  preencherEstados("uf-origem");
-  preencherEstados("uf-destino");
+  preencherEstados("uf_origem");
+  preencherEstados("uf_destino");
 
-  document.getElementById("uf-origem").addEventListener("change", () => {
-    atualizarCidades("uf-origem", "cidade_origem");
+  document.getElementById("uf_origem").addEventListener("change", () => {
+    atualizarCidades("uf_origem", "cidade_origem");
   });
 
-  document.getElementById("uf-destino").addEventListener("change", () => {
-    atualizarCidades("uf-destino", "cidade_destino");
+  document.getElementById("uf_destino").addEventListener("change", () => {
+    atualizarCidades("uf_destino", "cidade_destino");
   });
 
   // Inicializar as cidades com base no primeiro estado
-  atualizarCidades("uf-origem", "cidade_origem");
-  atualizarCidades("uf-destino", "cidade_destino");
+  atualizarCidades("uf_origem", "cidade_origem");
+  atualizarCidades("uf_destino", "cidade_destino");
 
