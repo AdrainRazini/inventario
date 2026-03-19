@@ -551,6 +551,7 @@ document.getElementById('form-adicionar').onsubmit = async function (event) {
   }
 };
 
+
 document.addEventListener('DOMContentLoaded', () => {
   const categoriaSelect = document.querySelector('select[name="movel_categoria[]"]');
   const descricaoSelect = document.querySelector('select[name="movel_descricao[]"]');
