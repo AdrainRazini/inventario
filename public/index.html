@@ -360,12 +360,12 @@ verificarPermissaoAdmin();
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
-  <script type="module" src="js/firebase.js"></script>
+  <script type="module" src="js/Auth.js"></script>
   <script type="module" src="js/main.js"></script>
   <script>AOS.init()</script>
 
 <script type="module">
-  import { db } from "./js/firebase.js";
+  import { db } from "./js/Auth.js";
   import { collection, getDocs } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
 
   AOS.init();
